@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Facturar</title>
+    <link rel="stylesheet" href="/css/login.css">
+    <link rel="stylesheet" href="/css/facturar.css">
+</head>
+
+<body>
+<header th:replace="~{/fragments/header :: header}"></header>
+<form method="POST" name="prestamo" action="prestamo/calcular">
+    <div class="centered">
+        <table class="table">
+            <tr> <td> Proveedor: </td> </tr>
+            <tr> <td> Cliente: </td> </tr>
+            <tr> <th>Cant.</th> <th>Descripcion</th><th>Precio</th><th>Monto</th><th>...</th></tr>
+            <tr> <td> Codigo: </td> </tr>
+            <tr> <td> Total: </td> </tr>
+        </table>
+    </div>
+    <div class="section"><input type="submit" name="calcular" value="Save"></div>
+</form>
+<div class="footer">
+    <div>@factura.electronica.com<img class="logo" src="images/logo.png"/>&nbsp</div>
+</div>
+</body>
+</html>

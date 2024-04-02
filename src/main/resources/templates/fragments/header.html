@@ -1,0 +1,31 @@
+<link rel="stylesheet" href="css/login.css">
+
+<header th:fragment="header" class="header">
+    <div><img class="logo" src="images/logo.png"/>&nbsp;</div>
+    <div>Facturación Electrónica</div>
+    <div>
+        <ul class="Menu">
+            <li><a href="/presentation/acercade/show"> Acerca de...</a></li>
+            <th:block th:if="${session.usuario!=null}">
+                <th:block th:if="${session.usuario.getRol().equals( 'PRO')}">
+                    <li><a href="/presentation/facturar/show">Facturar</a></li>
+                    <li><a href="/presentation/clientes/show">Clientes</a></li>
+                    <li><a href="/presentation/proveedorores/facturas">Facturas</a></li>
+                    <li><a href="/presentation/proveedorores/productos">Productos</a></li>
+                </th:block>
+                <th:block th:if="${session.usuario.getRol().equals('ADM')}">
+                    <li><a href="/presentation/proveedorores/show">Proveedores</a></li>
+                </th:block>
+                <li><a href="#">Nombre usuario</a>
+                    <ul>
+                        <li><a href="">Perfil</a></li>
+                        <li><a href="">Logout</a></li>
+                    </ul>
+                </li>
+            </th:block>
+            <th:block th:unless="${session.usuario!=null}">
+                <li><a href="/presentation/Login/show">Login</a></li>
+            </th:block>
+        </ul>
+    </div>
+</header>
