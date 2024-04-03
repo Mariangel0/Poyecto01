@@ -19,6 +19,9 @@ public class Service {
     public Iterable<Cliente> clienteFindAll(){
         return clienteRepository.findAll();
     }
+    public Iterable<Proveedor> proveedorFindAll(){
+        return proveedorRepository.findAll();
+    }
 
     public Usuario usuarioRead(String id){
 

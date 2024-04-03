@@ -38,7 +38,7 @@ public class controller {
                     case "PRO":
                         return "redirect:/presentation/facturar/show";
                     case "ADM":
-                        return "redirect:/presentation/facturar/factura";
+                        return "redirect:/presentation/proveedores/show";
                     default:
                         return "redirect:/error";
                 }

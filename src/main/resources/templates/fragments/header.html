@@ -17,10 +17,10 @@
                 <th:block th:if="${session.usuario.getRol().equals('ADM')}">
                     <li><a href="/presentation/proveedorores/show">Proveedores</a></li>
                 </th:block>
-                <li><a href="#">Nombre usuario</a>
+                <li><a href="#"><span th:text="${session.usuario.getIdentificacion()}"></span></a>
                     <ul>
                         <li><a href="">Perfil</a></li>
-                        <li><a href="">Logout</a></li>
+                        <li><a href="/presentation/login/logout">Logout</a></li>
                     </ul>
                 </li>
             </th:block>
