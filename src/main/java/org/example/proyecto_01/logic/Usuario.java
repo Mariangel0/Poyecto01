@@ -6,7 +6,7 @@ import java.util.Objects;
 
 @Entity
 public class Usuario {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Id
     @Column(name = "identificacion")
     private String identificacion;
@@ -16,6 +16,8 @@ public class Usuario {
     @Basic
     @Column(name = "rol")
     private String rol;
+    @OneToOne(mappedBy = "usuarioByIdentificacion")
+    private Proveedor proveedorByIdentificacion;
 
     public String getIdentificacion() {
         return identificacion;
@@ -52,5 +54,13 @@ public class Usuario {
     @Override
     public int hashCode() {
         return Objects.hash(identificacion, clave, rol);
+    }
+
+    public Proveedor getProveedorByIdentificacion() {
+        return proveedorByIdentificacion;
+    }
+
+    public void setProveedorByIdentificacion(Proveedor proveedorByIdentificacion) {
+        this.proveedorByIdentificacion = proveedorByIdentificacion;
     }
 }

@@ -2,31 +2,40 @@ package org.example.proyecto_01.logic;
 
 import jakarta.persistence.*;
 
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
 public class Factura {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "codigoFactura")
-    private int codigoFactura;
+    @Column(name = "codigo")
+    private int codigo;
     @Basic
     @Column(name = "total")
-    private Double total;
+    private double total;
+    @OneToMany(mappedBy = "facturaByFacturaCodD")
+    private Collection<Detalle> detallesByCodigo;
+    @ManyToOne
+    @JoinColumn(name = "cliente_num", referencedColumnName = "numCliente", nullable = false)
+    private Cliente clienteByClienteNum;
+    @ManyToOne
+    @JoinColumn(name = "proveedor_idF", referencedColumnName = "identificacion", nullable = false)
+    private Proveedor proveedorByProveedorIdF;
 
-    public int getCodigoFactura() {
-        return codigoFactura;
+    public int getCodigo() {
+        return codigo;
     }
 
-    public void setCodigoFactura(int codigoFactura) {
-        this.codigoFactura = codigoFactura;
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
 
-    public Double getTotal() {
+    public double getTotal() {
         return total;
     }
 
-    public void setTotal(Double total) {
+    public void setTotal(double total) {
         this.total = total;
     }
 
@@ -35,11 +44,35 @@ public class Factura {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Factura factura = (Factura) o;
-        return codigoFactura == factura.codigoFactura && Objects.equals(total, factura.total);
+        return codigo == factura.codigo && Double.compare(total, factura.total) == 0;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(codigoFactura, total);
+        return Objects.hash(codigo, total);
+    }
+
+    public Collection<Detalle> getDetallesByCodigo() {
+        return detallesByCodigo;
+    }
+
+    public void setDetallesByCodigo(Collection<Detalle> detallesByCodigo) {
+        this.detallesByCodigo = detallesByCodigo;
+    }
+
+    public Cliente getClienteByClienteNum() {
+        return clienteByClienteNum;
+    }
+
+    public void setClienteByClienteNum(Cliente clienteByClienteNum) {
+        this.clienteByClienteNum = clienteByClienteNum;
+    }
+
+    public Proveedor getProveedorByProveedorIdF() {
+        return proveedorByProveedorIdF;
+    }
+
+    public void setProveedorByProveedorIdF(Proveedor proveedorByProveedorIdF) {
+        this.proveedorByProveedorIdF = proveedorByProveedorIdF;
     }
 }

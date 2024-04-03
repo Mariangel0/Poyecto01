@@ -2,6 +2,7 @@ package org.example.proyecto_01.logic;
 
 import jakarta.persistence.*;
 
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -16,6 +17,14 @@ public class Producto {
     @Basic
     @Column(name = "precio")
     private double precio;
+    @Basic
+    @Column(name = "cantidad")
+    private int cantidad;
+    @OneToMany(mappedBy = "productoByProductoCodD")
+    private Collection<Detalle> detallesByCodigo;
+    @ManyToOne
+    @JoinColumn(name = "proveedor_idP", referencedColumnName = "identificacion", nullable = false)
+    private Proveedor proveedorByProveedorIdP;
 
     public String getCodigo() {
         return codigo;
@@ -41,16 +50,40 @@ public class Producto {
         this.precio = precio;
     }
 
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Producto producto = (Producto) o;
-        return Double.compare(precio, producto.precio) == 0 && Objects.equals(codigo, producto.codigo) && Objects.equals(nombre, producto.nombre);
+        return Double.compare(precio, producto.precio) == 0 && cantidad == producto.cantidad && Objects.equals(codigo, producto.codigo) && Objects.equals(nombre, producto.nombre);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(codigo, nombre, precio);
+        return Objects.hash(codigo, nombre, precio, cantidad);
+    }
+
+    public Collection<Detalle> getDetallesByCodigo() {
+        return detallesByCodigo;
+    }
+
+    public void setDetallesByCodigo(Collection<Detalle> detallesByCodigo) {
+        this.detallesByCodigo = detallesByCodigo;
+    }
+
+    public Proveedor getProveedorByProveedorIdP() {
+        return proveedorByProveedorIdP;
+    }
+
+    public void setProveedorByProveedorIdP(Proveedor proveedorByProveedorIdP) {
+        this.proveedorByProveedorIdP = proveedorByProveedorIdP;
     }
 }

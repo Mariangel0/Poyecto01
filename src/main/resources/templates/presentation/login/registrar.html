@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrarse</title>
+    <link rel="stylesheet" href="/css/registro.css">
+</head>
+<body>
+<header th:replace="~{/fragments/header :: header}"></header>
+<div class="body">
+    <form id="registrar" method="POST" name="registrar" action=""></form>
+    <div class="form">
+        <div class="heading"> Registro</div>
+        <div class="row">
+            <div>Nombre</div>
+            <div><input type="text" name="nombre" size=15 value=""></div>
+        </div>
+        <div class="row">
+            <div>Identificacion</div>
+            <div><input type="text" name="id" size=15 value=""></div>
+        </div>
+        <div class="row">
+            <div>Correo</div>
+            <div><input type="text" name="correo" size=15 value=""></div>
+        </div>
+        <div class="heading"><input type="submit" name="registro" value="Aceptar"></div>
+    </div>
+</div>
+</body>
+</html>

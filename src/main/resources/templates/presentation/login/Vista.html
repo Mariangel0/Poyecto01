@@ -10,12 +10,12 @@
 <body>
 <header th:replace="~{fragments/header :: header}"></header>
 <div class="body">
-    <form id="login" method="POST" name="entrar" action=""></form>
+    <form  th:action="@{/presentation/login/login}" th:object="${usuario}" method="POST" name="entrar" action="">
     <div class="form">
         <div class="heading"> Login</div>
         <div class="row">
             <div>Nombre</div>
-            <div><input type="text" name="nommbre" size=15 value=""></div>
+            <div><input type="text" name="nombre" size=15 value=""></div>
         </div>
         <div class="row">
             <div>Clave</div>
@@ -23,11 +23,12 @@
         </div>
         <div class="heading"><input type="submit" name="login" value="Login"></div>
         <div class="heading">No tiene cuenta?</div>
-        <a href="Vista.html">Regístrese aquí</a>
+        <a href="/presentation/login/registrar">Regístrese aquí</a>
     </div>
+    </form>
 </div>
 <div class="footer">
-    <div>@factura.electronica.com<img class="logo" src="images/logo.png"/>&nbsp</div>
+    <div>@factura.electronica.com<img class="logo" src="/images/logo.png"/>&nbsp</div>
 </div>
 </body>
 </html>

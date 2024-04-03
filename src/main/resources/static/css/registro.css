@@ -1,6 +1,4 @@
-body{
-    margin: 0;
-}
+
 
 .body {
     margin: 20px auto;
@@ -28,8 +26,7 @@ body{
 .row div {
     margin-bottom: 10px;
 }
-
-input[type="text"], input[type="password"]{
+input[type="text"] {
     width: 390%;
     padding: 10px;
     margin-bottom: 10px;
@@ -38,7 +35,6 @@ input[type="text"], input[type="password"]{
 }
 
 .heading input[type="text"],
-.heading input[type="password"],
 .heading input[type="submit"] {
     padding: 12px;
     margin-bottom: 15px;
@@ -60,22 +56,10 @@ input[type="text"], input[type="password"]{
     background-color: #780116;
 }
 
-.form a {
-    color: #d4e09b;
-    text-decoration: none;
-    font-weight: bold;
-    display: block;
-    text-align: center;
-    margin-top: 10px;
-}
 
-.heading a:hover {
-    text-decoration: none;
-    color: #0056b3;
-}
 
 .footer {
-    background-color: indianred;
+    background-color: #a44a3f;
     color: #fff;
     padding: 10px;
     text-align: center;
@@ -86,7 +70,6 @@ input[type="text"], input[type="password"]{
 }
 
 /* Media queries */
-
 @media (max-width: 768px) {
     .body {
         padding: 20px;
