@@ -1,3 +1,8 @@
+body {
+    background-color: #f5f5f5; /* Color de fondo para el cuerpo de la página */
+    font-family: Arial, sans-serif; /* Fuente para el texto */
+}
+
 .centered {
     display: flex;
     flex-direction: column;
@@ -8,35 +13,45 @@
 }
 
 .table {
-    border: 1px solid indianred;
     border-collapse: collapse;
+    width: 50%;
+    margin-top: 20px;
 }
 
-.td, th {
-    border: 1px solid indianred;
+.table th, .table td {
     padding: 8px;
-
 }
 
-tr {
-    border-bottom: 1px solid indianred; /* Aplica borde inferior a todas las filas */
+.table th {
+    background-color: indianred; /* Color de fondo para los encabezados */
 }
 
-.tr:first-child {
-    font-weight: bold;
-
+.table tr {
+    border: 1px solid #ccc; /* Borde para cada fila */
 }
 
-div.form div{
+
+.section {
+    margin-top: 20px;
     display: flex;
-    align-items: center;
-
+    justify-content: center; /* Centra horizontalmente el botón */
 }
 
-div.section{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    font-size: large;
+/* Estilo para los campos de entrada */
+/* Estilo para los campos de entrada */
+input[type="text"] {
+    width: calc(100% - 10px); /* El ancho del campo de entrada es el 100% del contenedor menos 10px de margen */
+    box-sizing: border-box; /* Incluye el padding y el borde en el ancho total */
+    padding: 5px; /* Espaciado interno */
+    margin: 0; /* Elimina el margen */
 }
+
+/* Estilo específico para los campos de ID y Código */
+input[name="id"],
+input[name="codigo"] {
+    width: calc(50% - 5px); /* El ancho del campo de entrada es el 50% del contenedor menos 10px de margen */
+    box-sizing: border-box; /* Incluye el padding y el borde en el ancho total */
+    padding: 5px; /* Espaciado interno */
+    margin: 0; /* Elimina el margen */
+}
+

@@ -6,20 +6,38 @@
     <link rel="stylesheet" href="/css/login.css">
     <link rel="stylesheet" href="/css/facturar.css">
 </head>
-
 <body>
 <header th:replace="~{/fragments/header :: header}"></header>
 <form method="POST" name="prestamo" action="prestamo/calcular">
     <div class="centered">
         <table class="table">
-            <tr> <td> Proveedor: </td> </tr>
-            <tr> <td> Cliente: </td> </tr>
-            <tr> <th>Cant.</th> <th>Descripcion</th><th>Precio</th><th>Monto</th><th>...</th></tr>
-            <tr> <td> Codigo: </td> </tr>
-            <tr> <td> Total: </td> </tr>
+            <tr>
+                <td colspan="5"> Proveedor:</td>
+            </tr>
+            <tr>
+                <td colspan="3"> Cliente:<input type="text" name="id" value="identificacion"></td>
+            </tr>
+            <tr>
+                <th>Cant.</th>
+                <th>Descripcion</th>
+                <th>Precio</th>
+                <th>Monto</th>
+                <th>...</th>
+            </tr>
+            <!--            <tr th:each="">-->
+            <!--            <td th:text="${c.getCantidad()}" />-->
+            <!--            <td th:text="${c.getNombre()}"/>-->
+            <!--            <td th:text="${c.getPrecio()}"-->
+            <!--            <td th:text="${c.getMonto()}"  </tr>-->
+            <tr>
+                <td colspan="5"> Codigo <input type="text" name="codigo" size=15 value=""></td>
+            </tr>
+            <tr>
+                <td colspan="5"> Total: </td>
+            </tr>
         </table>
     </div>
-    <div class="section"><input type="submit" name="calcular" value="Save"></div>
+    <div class="section"><input type="submit" name="guardar" value="Save"></div>
 </form>
 <div class="footer">
     <div>@factura.electronica.com<img class="logo" src="/images/logo.png"/>&nbsp</div>
