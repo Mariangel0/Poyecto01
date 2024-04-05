@@ -34,11 +34,10 @@ body {
 .section {
     margin-top: 20px;
     display: flex;
-    justify-content: center; /* Centra horizontalmente el botón */
+    justify-content: center;
 }
 
-/* Estilo para los campos de entrada */
-/* Estilo para los campos de entrada */
+
 input[type="text"] {
     width: calc(100% - 10px); /* El ancho del campo de entrada es el 100% del contenedor menos 10px de margen */
     box-sizing: border-box; /* Incluye el padding y el borde en el ancho total */
@@ -55,3 +54,21 @@ input[name="codigo"] {
     margin: 0; /* Elimina el margen */
 }
 
+.section input[type="image"] {
+    width: 25px; /* Ancho deseado para la imagen */
+    height: auto; /* Altura automática para mantener la proporción */
+}
+
+.boton-con-imagen {
+    background-image: url("/images/save.png");
+    background-repeat: no-repeat;
+    background-position: left;
+    border: none;
+    background-size: 20px; /* Ajusta el tamaño de la imagen según sea necesario */
+    padding-left: 25px; /* Ajusta el espacio a la izquierda del texto para que quepa la imagen */
+
+}
+
+.total-cell {
+    text-align: left; /* Alinea el texto a la izquierda */
+}

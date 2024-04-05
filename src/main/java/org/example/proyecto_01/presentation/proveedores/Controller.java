@@ -15,4 +15,6 @@ public class Controller {
         model.addAttribute("proveedores", service.proveedorFindAll());
         return "/presentation/proveedores/Vista";
     }
+
+
 }
