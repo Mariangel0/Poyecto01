@@ -7,7 +7,7 @@ import java.util.Objects;
 
 @Entity
 public class Cliente {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    // @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "numCliente")
     private int numCliente;
@@ -23,11 +23,16 @@ public class Cliente {
     @Basic
     @Column(name = "telefono")
     private String telefono;
+    @Basic
+    @Column(name = "proveedor_idC")
+    private String proveedorIdC;
+
     @ManyToOne
-    @JoinColumn(name = "proveedor_idC", referencedColumnName = "identificacion", nullable = false)
+    @JoinColumn(name = "proveedor_idc", referencedColumnName = "identificacion", nullable = false, insertable = false, updatable = false)
     private Proveedor proveedorByProveedorIdC;
     @OneToMany(mappedBy = "clienteByClienteNum")
     private Collection<Factura> facturasByNumCliente;
+
 
     public int getNumCliente() {
         return numCliente;
@@ -96,5 +101,13 @@ public class Cliente {
 
     public void setFacturasByNumCliente(Collection<Factura> facturasByNumCliente) {
         this.facturasByNumCliente = facturasByNumCliente;
+    }
+
+    public String getProveedorIdC() {
+        return proveedorIdC;
+    }
+
+    public void setProveedorIdC(String proveedorIdC) {
+        this.proveedorIdC = proveedorIdC;
     }
 }

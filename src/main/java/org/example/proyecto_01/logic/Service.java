@@ -79,9 +79,11 @@ public class Service {
         }
     }
 
-    public Cliente ClienteRead(String id) {
-        return clienteRepository.findById(id).orElse(null);
+    public Cliente clienteById(String identificacion){
+        System.out.println(identificacion + "perro");
+        return clienteRepository.findByIdentificacion(identificacion);
     }
+
 
 
 }

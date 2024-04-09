@@ -8,45 +8,47 @@
 </head>
 <body>
 <header th:replace="~{/fragments/header :: header}"></header>
-<form method="POST" name="prestamo" action="prestamo/calcular">
-    <div class="centered">
-        <table class="table">
-            <tr>
-                <td colspan="5"> Proveedor: <span th:text="${session.proveedor.getNombre()}"></span></td>
-            </tr>
-            <tr>
-                <form action="/presentation/clientes/search" method="post">
-                    <td colspan="3"> Cliente:<input type="text" name="id" value="identificacion"></td>
-                    <td><img class="check" src="/images/check.png"/></td>
-                    <td><img class="check" src="/images/loupe.png"/></td>
-                </form>
 
-            <tr>
-                <th>Cant.</th>
-                <th>Descripcion</th>
-                <th>Precio</th>
-                <th>Monto</th>
-                <th>...</th>
-            </tr>
-            <!--            <tr th:each="">-->
-            <!--            <td th:text="${c.getCantidad()}" />-->
-            <!--            <td th:text="${c.getNombre()}"/>-->
-            <!--            <td th:text="${c.getPrecio()}"-->
-            <!--            <td th:text="${c.getMonto()}"  </tr>-->
-            <tr>
-                <td colspan="3"> Codigo <input type="text" name="codigo" size=15 value=""></td>
-                <td><img class="check" src="/images/check.png"/></td>
-                <td><img class="check" src="/images/loupe.png"/></td>
-            </tr>
-            <tr>
-                <td colspan="3"></td>
-                <td>Total:</td>
-                <td></td>
-            </tr>
-        </table>
-    </div>
-    <div class="section"><input type="submit" name="guardar" value="Save" class="boton-con-imagen"></div>
-</form>
+<div class="centered">
+    <table class="table">
+        <tr>
+            <td colspan="5"> Proveedor: <span th:text="${proveedor.getNombre()}"></span></td>
+        </tr>
+        <tr>
+            <td> Cliente: <span th:if="${cliente != null}" th:text="${cliente.getNombre()}"></span></td>
+            <form action="/presentation/clientes/search" method="post">
+                <td colspan="4">
+                    <input type="text" name="identificacion" value="identificacion" size="15">
+                    <input type="image" src="/images/check.png" alt="Submit" class="check"/>
+                    <img class="check" src="/images/loupe.png"/></td>
+            </form>
+        </tr>
+        <tr>
+            <th>Cant.</th>
+            <th>Descripcion</th>
+            <th>Precio</th>
+            <th>Monto</th>
+            <th>...</th>
+        </tr>
+        <!--            <tr th:each="">-->
+        <!--            <td th:text="${c.getCantidad()}" />-->
+        <!--            <td th:text="${c.getNombre()}"/>-->
+        <!--            <td th:text="${c.getPrecio()}"-->
+        <!--            <td th:text="${c.getMonto()}"  </tr>-->
+        <tr>
+            <td colspan="3"> Codigo <input type="text" name="codigo" size=15 value=""></td>
+            <td><img class="check" src="/images/check.png"/></td>
+            <td><img class="check" src="/images/loupe.png"/></td>
+        </tr>
+        <tr>
+            <td colspan="3"></td>
+            <td>Total:</td>
+            <td></td>
+        </tr>
+    </table>
+</div>
+<div class="section"><input type="submit" name="guardar" value="Save" class="boton-con-imagen"></div>
+
 <div class="footer">
     <div>@factura.electronica.com<img class="logo" src="/images/logo.png"/>&nbsp</div>
 </div>
