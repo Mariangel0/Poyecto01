@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Productos</title>
+    <link rel="stylesheet" href="/css/productos.css">
+</head>
+<body>
+<header th:replace="~{/fragments/header :: header}"></header>
+
+<table>
+    <tr>
+        <th>Codigo</th>
+        <th>Nombre</th>
+        <th>Precio</th>
+        <th>Cantidad</th>
+        <th>Proveedor</th>
+    </tr>
+    <tr th:each="c: ${productos}">
+        <td th:text="${c.getCodigo()}"></td>
+        <td th:text="${c.getNombre()}"></td>
+        <td th:text="${c.getPrecio()}"></td>
+        <td th:text="${c.getCantidad()}"></td>
+        <td th:text="${c.getProveedorIdP()}"></td>
+    </tr>
+</table>
+
+<div class="footer">
+    <div>@factura.electronica.com<img class="logo" src="/images/logo.png"/>&nbsp</div>
+</div>
+</body>
+</html>

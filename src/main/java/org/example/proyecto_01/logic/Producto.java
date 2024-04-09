@@ -7,7 +7,7 @@ import java.util.Objects;
 
 @Entity
 public class Producto {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+   // @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "codigo")
     private String codigo;
@@ -20,11 +20,15 @@ public class Producto {
     @Basic
     @Column(name = "cantidad")
     private int cantidad;
+    @Basic
+    @Column(name = "proveedor_idP")
+    private String proveedorIdP;
     @OneToMany(mappedBy = "productoByProductoCodD")
     private Collection<Detalle> detallesByCodigo;
     @ManyToOne
-    @JoinColumn(name = "proveedor_idP", referencedColumnName = "identificacion", nullable = false)
+    @JoinColumn(name = "proveedor_idP", referencedColumnName = "identificacion", nullable = false,  insertable=false, updatable=false)
     private Proveedor proveedorByProveedorIdP;
+
 
     public String getCodigo() {
         return codigo;
@@ -85,5 +89,13 @@ public class Producto {
 
     public void setProveedorByProveedorIdP(Proveedor proveedorByProveedorIdP) {
         this.proveedorByProveedorIdP = proveedorByProveedorIdP;
+    }
+
+    public String getProveedorIdP() {
+        return proveedorIdP;
+    }
+
+    public void setProveedorIdP(String proveedorIdP) {
+        this.proveedorIdP = proveedorIdP;
     }
 }

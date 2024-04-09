@@ -9,8 +9,8 @@ import java.util.Objects;
 public class Cliente {
     // @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "numCliente")
-    private int numCliente;
+    @Column(name = "numcliente")
+    private int numcliente;
     @Basic
     @Column(name = "identificacion")
     private String identificacion;
@@ -29,17 +29,19 @@ public class Cliente {
 
     @ManyToOne
     @JoinColumn(name = "proveedor_idc", referencedColumnName = "identificacion", nullable = false, insertable = false, updatable = false)
+
+
     private Proveedor proveedorByProveedorIdC;
     @OneToMany(mappedBy = "clienteByClienteNum")
     private Collection<Factura> facturasByNumCliente;
 
 
     public int getNumCliente() {
-        return numCliente;
+        return numcliente;
     }
 
     public void setNumCliente(int numCliente) {
-        this.numCliente = numCliente;
+        this.numcliente = numCliente;
     }
 
     public String getIdentificacion() {
@@ -79,12 +81,12 @@ public class Cliente {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Cliente cliente = (Cliente) o;
-        return numCliente == cliente.numCliente && Objects.equals(identificacion, cliente.identificacion) && Objects.equals(nombre, cliente.nombre) && Objects.equals(correo, cliente.correo) && Objects.equals(telefono, cliente.telefono);
+        return numcliente == cliente.numcliente && Objects.equals(identificacion, cliente.identificacion) && Objects.equals(nombre, cliente.nombre) && Objects.equals(correo, cliente.correo) && Objects.equals(telefono, cliente.telefono);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(numCliente, identificacion, nombre, correo, telefono);
+        return Objects.hash(numcliente, identificacion, nombre, correo, telefono);
     }
 
     public Proveedor getProveedorByProveedorIdC() {
