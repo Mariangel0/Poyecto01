@@ -79,4 +79,9 @@ public class Service {
         }
     }
 
+    public Cliente ClienteRead(String id) {
+        return clienteRepository.findById(id).orElse(null);
+    }
+
+
 }

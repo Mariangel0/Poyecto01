@@ -72,3 +72,9 @@ input[name="codigo"] {
 .total-cell {
     text-align: left; /* Alinea el texto a la izquierda */
 }
+
+.check {
+    width: 15px; /* Ancho del logo */
+    height: 15px; /* Altura del logo */
+
+}
