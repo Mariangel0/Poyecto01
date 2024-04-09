@@ -1,19 +1,27 @@
 package org.example.proyecto_01.presentation.login;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
+import org.example.proyecto_01.logic.Proveedor;
 import org.example.proyecto_01.logic.Service;
 import org.example.proyecto_01.logic.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-@Controller
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+
+@org.springframework.stereotype.Controller("usuario")
 public class controller {
 
     @Autowired
     private Service service;
+
+    @ModelAttribute("usuario")
+    public Usuario UsuarioSearch() {
+        return new Usuario();
+    }
 
     @GetMapping("/")
     public String showHomePage() {
@@ -26,11 +34,10 @@ public class controller {
     }
 
     @PostMapping("/presentation/login/login")
-    public String login(@RequestParam("nombre") String nombre,
-                        @RequestParam("clave") String clave,
-                        HttpSession httpSession) {
+    public String login(@Valid @ModelAttribute("usuario") Usuario usuario, BindingResult result,
+                        HttpSession httpSession, Model model) {
         try {
-            Usuario usuarioDB = service.autenticarUsuario(nombre, clave);
+            Usuario usuarioDB = service.autenticarUsuario(usuario.getIdentificacion(), usuario.getClave());
             if (usuarioDB != null) {
                 httpSession.setAttribute("usuario", usuarioDB);
                 httpSession.setAttribute("proveedor", service.proveedorRead(usuarioDB.getIdentificacion()));
@@ -39,15 +46,17 @@ public class controller {
                         return "redirect:/presentation/facturar/show";
                     case "ADM":
                         return "redirect:/presentation/proveedores/show";
-                    default:
-                        return "redirect:/error";
                 }
             } else {
-                return "redirect:/error";
+                model.addAttribute("error", "Credenciales incorrectas. Por favor, intente de nuevo.");
+                return "/presentation/login/Vista";
             }
         } catch (Exception e) {
-            return "redirect:/error";
+            model.addAttribute("error", "Credenciales incorrectas. Por favor, intente de nuevo.");
+            return "/presentation/login/Vista";
         }
+
+        return "/presentation/login/Vista";
     }
 
     @GetMapping("/presentation/login/logout")
@@ -57,7 +66,19 @@ public class controller {
     }
 
     @GetMapping("/presentation/login/registrar")
-    public String registrar() {
+    public String logout() {
+        return "/presentation/login/registrar";
+    }
+
+    @PostMapping("/presentation/login/registro")
+    public String registrar(String identificacion, String clave, String nombre, String correo,  Model model) {
+        try {
+            service.crearUsuario(identificacion, clave, nombre, correo);
+            model.addAttribute("error", "El usuario ha sido registrado");
+            return "/presentation/login/Vista";
+        } catch (Exception e) {
+            model.addAttribute("error", "El usuario no pudo ser registrado");
+        }
         return "/presentation/login/registrar";
     }
 

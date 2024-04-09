@@ -11,20 +11,23 @@
 <header th:replace="~{fragments/header :: header}"></header>
 <div class="body">
     <form  th:action="@{/presentation/login/login}" th:object="${usuario}" method="POST" name="entrar" action="">
-    <div class="form">
-        <div class="heading"> Login</div>
-        <div class="row">
-            <div>Nombre</div>
-            <input type="text"  name="nombre" size="15" value="">
+        <div class="form">
+            <div class="heading"> Login</div>
+            <div class="row">
+                <div>Identificacion</div>
+                <input type="text" th:field="*{identificacion}"  name="identificacion" size="15" value="">
+            </div>
+            <p class="error-feedback" th:if="${#fields.hasErrors('identificacion')}" th:errors="*{identificacion}"></p>
+            <div class="row">
+                <div>Clave</div>
+                <div><input type="password"  th:field="*{clave}"  name="clave" size=15 value=""></div>
+            </div>
+            <p class="error-feedback" th:if="${#fields.hasErrors('clave') }" th:errors="*{clave}"></p>
+            <div th:if="${error}" class="error-message"> <p th:text="${error}"></p> </div>
+            <div class="heading"><input type="submit" name="login" value="Login"></div>
+            <div class="heading">No tiene cuenta?</div>
+            <a class="link" href="/presentation/login/registrar">Regístrese aquí</a>
         </div>
-        <div class="row">
-            <div>Clave</div>
-            <div><input type="password"   name="clave" size=15 value=""></div>
-        </div>
-        <div class="heading"><input type="submit" name="login" value="Login"></div>
-        <div class="heading">No tiene cuenta?</div>
-        <a href="/presentation/login/registrar">Regístrese aquí</a>
-    </div>
     </form>
 </div>
 <div class="footer">
