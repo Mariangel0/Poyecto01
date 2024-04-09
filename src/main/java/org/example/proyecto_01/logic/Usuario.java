@@ -1,15 +1,17 @@
 package org.example.proyecto_01.logic;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 
 import java.util.Objects;
 
 @Entity
 public class Usuario {
-
+    @NotEmpty
     @Id
     @Column(name = "identificacion")
     private String identificacion;
+    @NotEmpty
     @Basic
     @Column(name = "clave")
     private String clave;

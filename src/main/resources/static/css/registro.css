@@ -86,3 +86,9 @@ input[type="text"] {
         border-radius: 10px;
     }
 }
+
+.error-feedback{
+    margin-top: 15px;
+    color: red;
+    font-size: 12px;
+}

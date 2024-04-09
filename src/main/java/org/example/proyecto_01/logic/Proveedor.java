@@ -1,13 +1,15 @@
 package org.example.proyecto_01.logic;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
 
 import java.util.Collection;
 import java.util.Objects;
 
 @Entity
 public class Proveedor {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "identificacion")
     private String identificacion;
