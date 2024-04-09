@@ -10,7 +10,8 @@ public interface ClienteRepository extends CrudRepository<Cliente, String> {
 
     Cliente  findByIdentificacion(String identificacion);
 
-    Cliente findByidentificacion(String identificacion);
     Iterable<Cliente> findByProveedorIdC(String identificacion);
+
+    Cliente findByProveedorIdCAndIdentificacion(String idP, String idC);
 
 }

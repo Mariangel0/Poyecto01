@@ -18,7 +18,7 @@ public class Controller {
 
     @ModelAttribute("proveedoresAceptados") public Iterable<Proveedor> proveedoresAceptados(){return new ArrayList<Proveedor>();}
     @ModelAttribute("proveedoresEnEspera") public Iterable<Proveedor> proveedoresEnEspera(){return new ArrayList<Proveedor>();}
-    @ModelAttribute("proveedorEdit") public Proveedor clienteEdit(){return new Proveedor();}
+
     @GetMapping("/presentation/proveedores/show")
     public String show(Model model){
         model.addAttribute("proveedoresAceptados", service.proveedoressAceptados());
@@ -27,8 +27,7 @@ public class Controller {
     }
 
     @GetMapping("/presentation/proveedores/aprobar/{identificacion}")
-    public String aprobarProveedores(@PathVariable("identificacion") String identificacion,
-                                     Model model) {
+    public String aprobarProveedores(@PathVariable("identificacion") String identificacion) {
         Proveedor proveedorE = service.proveedorRead(identificacion);
         proveedorE.setEstado((byte) 1);
         service.cambiarProveedor(proveedorE);
@@ -37,7 +36,7 @@ public class Controller {
     @GetMapping("/presentation/proveedores/delete/{identificacion}")
     public String delete(@PathVariable("identificacion") String identificacion){
         service.eliminarProovedor(identificacion);
-        return "/presentation/proveedores/Vista";
+        return "redirect:/presentation/proveedores/show";
     }
 
 

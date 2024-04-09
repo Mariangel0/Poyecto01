@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Objects;
+
 
 @org.springframework.stereotype.Controller("usuario")
 public class controller {
@@ -39,24 +41,25 @@ public class controller {
         try {
             Usuario usuarioDB = service.autenticarUsuario(usuario.getIdentificacion(), usuario.getClave());
             if (usuarioDB != null) {
-                httpSession.setAttribute("usuario", usuarioDB);
-                httpSession.setAttribute("proveedor", service.proveedorRead(usuarioDB.getIdentificacion()));
-                switch (usuarioDB.getRol()) {
-                    case "PRO":
-                        return "redirect:/presentation/facturar/show";
-                    case "ADM":
-                        return "redirect:/presentation/proveedores/show";
+                if (Objects.equals(usuarioDB.getRol(), "ADM") || service.proveedorRead(usuarioDB.getIdentificacion()).getEstado().equals((byte) 1)) {
+                    httpSession.setAttribute("usuario", usuarioDB);
+                    httpSession.setAttribute("proveedor", service.proveedorRead(usuarioDB.getIdentificacion()));
+                    switch (usuarioDB.getRol()) {
+                        case "PRO":
+                            return "redirect:/presentation/facturar/show";
+                        case "ADM":
+                            return "redirect:/presentation/proveedores/show";
+                    }
                 }
-            } else {
-                model.addAttribute("error", "Credenciales incorrectas. Por favor, intente de nuevo.");
-                return "/presentation/login/Vista";
             }
+            model.addAttribute("error", "Credenciales incorrectas. Por favor, intente de nuevo.");
+            return "/presentation/login/Vista";
+
         } catch (Exception e) {
             model.addAttribute("error", "Credenciales incorrectas. Por favor, intente de nuevo.");
             return "/presentation/login/Vista";
         }
 
-        return "/presentation/login/Vista";
     }
 
     @GetMapping("/presentation/login/logout")

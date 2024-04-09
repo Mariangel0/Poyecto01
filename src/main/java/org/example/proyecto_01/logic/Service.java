@@ -23,15 +23,25 @@ public class Service {
     public void cambiarProveedor(Proveedor proveedor) {
         proveedorRepository.save(proveedor);
     }
+    public Cliente cambiarCliente(Cliente cliente, Proveedor proveedor) {
+        cliente.setProveedorIdC(proveedor.getIdentificacion());
+        return clienteRepository.save(cliente);
+    }
+
     public void eliminarProovedor(String id){
         proveedorRepository.deleteById(id);
         usuarioRepository.deleteById(id);
+
     }
     public Iterable<Producto> productosFindAll(Proveedor proveedor) {
         return productoRepository.findByProveedorIdP(proveedor.getIdentificacion());
     }
     public Iterable<Cliente> clientesFindAll(Proveedor proveedor) {
         return clienteRepository.findByProveedorIdC(proveedor.getIdentificacion());
+    }
+    public Cliente clienteRead(String idP, String idC) {
+
+        return clienteRepository.findByProveedorIdCAndIdentificacion(idP, idC);
     }
 
     public Iterable<Proveedor> proveedorFindAll() {

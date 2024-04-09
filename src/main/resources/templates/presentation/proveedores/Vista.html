@@ -11,12 +11,12 @@
     <table class="aceptados">
         <caption>Aceptados</caption>
         <tr> <th>Identificacion</th> <th>Nombre</th><th colspan="2">Correo</th></tr>
-        <tr th:each="c: ${proveedoresAceptados}">
-            <td th:text="${c.getIdentificacion()}"></td>
-            <td th:text="${c.getNombre()}"></td>
-            <td th:text="${c.getCorreo()}"></td>
+        <tr th:each="pA: ${proveedoresAceptados}">
+            <td th:text="${pA.getIdentificacion()}"></td>
+            <td th:text="${pA.getNombre()}"></td>
+            <td th:text="${pA.getCorreo()}"></td>
             <td>
-                <a th:href="@{'/presentation/proveedores/delete/' + ${c.identificacion}}" class="edit-link">
+                <a th:href="@{'/presentation/proveedores/delete/' + ${pA.identificacion}}" class="edit-link">
                     <img class="icon" src="/images/delete.png"/>
                 </a>
             </td>
@@ -27,12 +27,12 @@
     <table class="espera">
         <caption>Espera</caption>
         <tr> <th>Identificacion</th> <th>Nombre</th><th colspan="2" >Correo</th></tr>
-        <tr th:each="c: ${proveedoresEspera}">
-            <td th:text="${c.getIdentificacion()}"></td>
-            <td th:text="${c.getNombre()}"></td>
-            <td  th:text="${c.getCorreo()}"></td>
+        <tr th:each="pE: ${proveedoresEspera}">
+            <td th:text="${pE.getIdentificacion()}"></td>
+            <td th:text="${pE.getNombre()}"></td>
+            <td  th:text="${pE.getCorreo()}"></td>
             <td>
-                <a th:href="@{'/presentation/proveedores/aprobar/' + ${c.identificacion}}" class="edit-link">
+                <a th:href="@{'/presentation/proveedores/aprobar/' + ${pE.identificacion}}" class="edit-link">
                     <img class="icon" src="/images/check.png"/>
                 </a>
             </td>
