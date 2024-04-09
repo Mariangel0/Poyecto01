@@ -2,30 +2,35 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <style>
-
-    </style>
+    <title>Facturacion Electronica</title>
+    <link rel="stylesheet" href="/css/proveedores.css">
 </head>
 <body>
 <header th:replace="~{/fragments/header :: header}"></header>
 <div class="container">
     <table class="aceptados">
-        <tr> <th>Identificacion</th> <th>Nombre</th><th>Correo</th></tr>
+        <caption>Aceptados</caption>
+        <tr> <th>Identificacion</th> <th>Nombre</th><th colspan="2">Correo</th></tr>
         <tr th:each="c: ${proveedoresAceptados}">
             <td th:text="${c.getIdentificacion()}"></td>
             <td th:text="${c.getNombre()}"></td>
             <td th:text="${c.getCorreo()}"></td>
+            <td>
+                <a th:href="@{'/presentation/proveedores/delete/' + ${c.identificacion}}" class="edit-link">
+                    <img class="icon" src="/images/delete.png"/>
+                </a>
+            </td>
         </tr>
     </table>
 </div>
 <div class="container2">
     <table class="espera">
-        <tr> <th>Identificacion</th> <th>Nombre</th><th>Correo</th></tr>
+        <caption>Espera</caption>
+        <tr> <th>Identificacion</th> <th>Nombre</th><th colspan="2" >Correo</th></tr>
         <tr th:each="c: ${proveedoresEspera}">
             <td th:text="${c.getIdentificacion()}"></td>
             <td th:text="${c.getNombre()}"></td>
-            <td th:text="${c.getCorreo()}"></td>
+            <td  th:text="${c.getCorreo()}"></td>
             <td>
                 <a th:href="@{'/presentation/proveedores/aprobar/' + ${c.identificacion}}" class="edit-link">
                     <img class="icon" src="/images/check.png"/>

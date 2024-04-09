@@ -1,6 +1,7 @@
 package org.example.proyecto_01.logic;
 
 import org.example.proyecto_01.data.ClienteRepository;
+import org.example.proyecto_01.data.ProductoRepository;
 import org.example.proyecto_01.data.ProveedorRepository;
 import org.example.proyecto_01.data.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +14,24 @@ public class Service {
     private UsuarioRepository usuarioRepository;
     @Autowired
     private ProveedorRepository proveedorRepository;
+    @Autowired
+    private ProductoRepository productoRepository;
 
     private HaciendaStub hacienda;
 
-    public Iterable<Cliente> clienteFindAll() {
-        return clienteRepository.findAll();
+    //proveedores
+    public void cambiarProveedor(Proveedor proveedor) {
+        proveedorRepository.save(proveedor);
+    }
+    public void eliminarProovedor(String id){
+        proveedorRepository.deleteById(id);
+        usuarioRepository.deleteById(id);
+    }
+    public Iterable<Producto> productosFindAll(Proveedor proveedor) {
+        return productoRepository.findByProveedorIdP(proveedor.getIdentificacion());
+    }
+    public Iterable<Cliente> clientesFindAll(Proveedor proveedor) {
+        return clienteRepository.findByProveedorIdC(proveedor.getIdentificacion());
     }
 
     public Iterable<Proveedor> proveedorFindAll() {
@@ -46,7 +60,6 @@ public class Service {
     }
 
     public void crearUsuario(String identificacion, String clave, String nombre, String correo) {
-        validateIdentificacionClave(identificacion, clave);
 
         // Verificar si el proveedor ya existe
         Proveedor proveedorExistente = proveedorRepository.findByidentificacion(identificacion);
@@ -70,14 +83,6 @@ public class Service {
         proveedorRepository.save(proveedor);
     }
 
-    private void validateIdentificacionClave(String identificacion, String clave) {
-        if (identificacion == null || identificacion.isEmpty()) {
-            throw new IllegalArgumentException("La identificación no puede ser vacía");
-        }
-        if (clave == null || clave.isEmpty()) {
-            throw new IllegalArgumentException("La clave no puede ser vacía");
-        }
-    }
 
     public Cliente ClienteRead(String id) {
         return clienteRepository.findById(id).orElse(null);

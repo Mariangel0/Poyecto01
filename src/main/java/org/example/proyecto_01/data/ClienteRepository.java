@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ClienteRepository extends CrudRepository<Cliente, String> {
     Cliente findByidentificacion(String identificacion);
+    Iterable<Cliente> findByProveedorIdC(String identificacion);
 }
