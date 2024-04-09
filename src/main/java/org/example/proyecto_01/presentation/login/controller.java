@@ -71,11 +71,12 @@ public class controller {
     }
 
     @PostMapping("/presentation/login/registro")
-    public String registrar(String identificacion, String clave, String nombre, String correo,  Model model) {
+    public String registrar(String identificacion, String clave, String nombre, String correo, HttpSession httpSession, Model model) {
         try {
             service.crearUsuario(identificacion, clave, nombre, correo);
-            model.addAttribute("error", "El usuario ha sido registrado");
-            return "/presentation/login/Vista";
+            model.addAttribute("exito", "El usuario ha sido registrado");
+            httpSession.setAttribute("proveedor", service.proveedorRead(identificacion));
+            return "/presentation/login/registrar";
         } catch (Exception e) {
             model.addAttribute("error", "El usuario no pudo ser registrado");
         }

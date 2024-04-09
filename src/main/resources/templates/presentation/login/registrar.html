@@ -9,7 +9,7 @@
 <header th:replace="~{/fragments/header :: header}"></header>
 <div class="body">
     <form id="registrar" method="POST" name="registrar" action="/presentation/login/registro">
-    <div class="form">
+        <div class="form">
             <div class="heading"> Registro</div>
             <div class="row">
                 <div>Nombre</div>
@@ -27,8 +27,8 @@
                 <div>Contraseña</div>
                 <div><input type="text" id="clave" name="clave" size=15 value=""></div>
             </div>
+            <div th:if="${exito}" class="exito-feedback"> <p th:text="${exito}"></p> </div>
             <div th:if="${error}" class="error-message"> <p th:text="${error}"></p> </div>
-            <div th:if="${exitoso}" class="error-message"> <p th:text="${exitoso}"></p> </div>
             <div class="heading"><input type="submit" name="registro" value="Aceptar"></div>
         </div>
     </form>

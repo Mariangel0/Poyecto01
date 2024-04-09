@@ -12,10 +12,15 @@
     <div class="centered">
         <table class="table">
             <tr>
-                <td colspan="5"> Proveedor:</td>
+                <td colspan="5"> Proveedor: <span th:text="${session.proveedor.getNombre()}"></span></td>
             </tr>
             <tr>
-                <td colspan="3"> Cliente:<input type="text" name="id" value="identificacion"></td>
+                <form action="/presentation/clientes/search" method="post">
+                    <td colspan="3"> Cliente:<input type="text" name="id" value="identificacion"></td>
+                    <td><img class="check" src="/images/check.png"/></td>
+                    <td><img class="check" src="/images/loupe.png"/></td>
+                </form>
+
             <tr>
                 <th>Cant.</th>
                 <th>Descripcion</th>
@@ -30,9 +35,11 @@
             <!--            <td th:text="${c.getMonto()}"  </tr>-->
             <tr>
                 <td colspan="3"> Codigo <input type="text" name="codigo" size=15 value=""></td>
+                <td><img class="check" src="/images/check.png"/></td>
+                <td><img class="check" src="/images/loupe.png"/></td>
             </tr>
             <tr>
-                <td colspan="3">  </td>
+                <td colspan="3"></td>
                 <td>Total:</td>
                 <td></td>
             </tr>

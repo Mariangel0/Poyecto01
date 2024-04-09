@@ -92,3 +92,13 @@ input[type="text"] {
     color: red;
     font-size: 12px;
 }
+
+
+.exito-message, .exito-feedback {
+    background-color: seagreen; /* Color de fondo del mensaje de error */
+    color: black; /* Color del texto del mensaje de error */
+    border: 1px solid seagreen; /* Borde del mensaje de error */
+    margin-top: 10px; /* Margen superior del mensaje de error */
+    border-radius: 5px; /* Radio de borde del mensaje de error */
+    padding: 5px;
+}
