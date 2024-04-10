@@ -26,9 +26,6 @@
     <!--            <td th:text="${c.getDetallesByCodigo()}"
                     <td th:text="${c.getProveedorByProveedorIdF()}" </tr>-->
 </table>
-
-<div class="footer">
-    <div>@factura.electronica.com<img class="logo" src="/images/logo.png"/>&nbsp</div>
-</div>
+<footer th:replace="~{/fragments/footer :: footer}"></footer>
 </body>
 </html>

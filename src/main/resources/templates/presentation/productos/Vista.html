@@ -4,29 +4,59 @@
     <meta charset="UTF-8">
     <title>Productos</title>
     <link rel="stylesheet" href="/css/productos.css">
+    <link rel="stylesheet" href="/css/tabla-editar.css">
 </head>
 <body>
 <header th:replace="~{/fragments/header :: header}"></header>
+<div class="container">
+    <div class="main-content">
+        <div class="centered">
+            <div class="titulo-producto">Productos</div>
+            <table>
+                <tr>
+                    <th>Codigo</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Cantidad</th>
+                    <th>Proveedor</th>
+                </tr>
+                <tr th:each="c: ${productos}">
+                    <td th:text="${c.getCodigo()}"></td>
+                    <td th:text="${c.getNombre()}"></td>
+                    <td th:text="${c.getPrecio()}"></td>
+                    <td th:text="${c.getCantidad()}"></td>
+                    <td th:text="${c.getProveedorIdP()}"></td>
+                </tr>
+            </table>
 
-<table>
-    <tr>
-        <th>Codigo</th>
-        <th>Nombre</th>
-        <th>Precio</th>
-        <th>Cantidad</th>
-        <th>Proveedor</th>
-    </tr>
-    <tr th:each="c: ${productos}">
-        <td th:text="${c.getCodigo()}"></td>
-        <td th:text="${c.getNombre()}"></td>
-        <td th:text="${c.getPrecio()}"></td>
-        <td th:text="${c.getCantidad()}"></td>
-        <td th:text="${c.getProveedorIdP()}"></td>
-    </tr>
-</table>
-
-<div class="footer">
-    <div>@factura.electronica.com<img class="logo" src="/images/logo.png"/>&nbsp</div>
+        </div>
+    </div>
+    <div class="side-content">
+        <div class="titulo-producto">Editar</div>
+        <form method="POST" name="editar" th:object="${productoEditar}"
+              th:action="@{/presentation/clientes/create}">
+            <div>
+                <label for="codigo">Codigo</label>
+                <input type="text" id="codigo" name="codigo" value="" th:field="*{codigo}">
+            </div>
+            <div>
+                <label for="nombre">Nombre</label>
+                <input type="text" id="nombre" name="nombre" value="" th:field="*{nombre}">
+            </div>
+            <div>
+                <label for="precio">Precio</label>
+                <input type="text" id="precio" name="precio" value="" th:field="*{precio}">
+            </div>
+            <div>
+                <label for="cantidad">Cantidad</label>
+                <input type="text" id="cantidad" name="cantidad" value="" th:field="*{cantidad}">
+            </div>
+            <div>
+                <input type="submit" name="crear" value="Crear">
+            </div>
+        </form>
+    </div>
 </div>
+<footer th:replace="~{/fragments/footer :: footer}"></footer>
 </body>
 </html>

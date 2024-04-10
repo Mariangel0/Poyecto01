@@ -1,0 +1,114 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif; /* Fuente para el texto */
+    background-color: #f4f4f4; /* Color de fondo */
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70vh; /* Centra el contenido verticalmente */
+}
+
+.titulo-cliente {
+    font-family: "Bradley Hand ITC";
+    font-size: 32px; /* Tamaño de fuente más grande */
+    color: indianred;
+    margin-bottom: 20px; /* Agrega espacio debajo del título */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-content {
+    flex: 1;
+    padding: 20px; /* Ajusta el espaciado interior según sea necesario */
+}
+
+.side-content {
+    flex: 1;
+    margin: 20px; /* Agrega margen alrededor del side-content */
+    max-width: 400px; /* Ancho máximo del side-content */
+    width: 100%;
+    background-color: #fff; /* Fondo blanco */
+    border-radius: 10px; /* Borde redondeado */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+.footer {
+    background-color: indianred;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ccc; /* Borde exterior de la tabla */
+}
+
+.container input[type="text"] {
+    width: calc(40% - 10px);
+    padding-block: 5px;
+
+}
+
+th, td {
+    border-bottom: 1px solid #ccc; /* Borde inferior de cada fila */
+    padding: 10px; /* Ajusta el espaciado interno de las celdas según sea necesario */
+    text-align: center; /* Centra el texto horizontalmente en las celdas */
+}
+
+.side-content form {
+    padding: 20px; /* Espaciado interno del formulario */
+}
+
+.side-content form label {
+    display: block;
+    margin-bottom: 10px; /* Agrega espacio debajo de las etiquetas */
+}
+
+input[type="text"] {
+
+    padding: 10px; /* Espaciado interno */
+    margin-bottom: 20px; /* Agrega espacio debajo de los campos de entrada */
+    border: 1px solid #ccc; /* Borde gris */
+    border-radius: 5px; /* Borde redondeado */
+}
+
+.side-content form input[type="text"]{
+    width: 95%;
+    padding: 5px; /* Espaciado interno */
+}
+
+
+/* Estilos para el botón del formulario */
+.side-content form input[type="submit"] {
+    width: 100%; /* Ancho completo */
+    padding: 10px; /* Espaciado interno */
+    background-color: indianred; /* Color de fondo */
+    color: white; /* Color del texto */
+    border: none; /* Quita el borde */
+    border-radius: 5px; /* Borde redondeado */
+    cursor: pointer; /* Cambia el cursor */
+    transition: background-color 0.3s; /* Transición suave */
+}
+
+.side-content form input[type="submit"]:hover {
+    background-color: #b30000; /* Color de fondo más oscuro al pasar el cursor */
+}
+
+.edit-link {
+    text-decoration: none;
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+}

@@ -21,6 +21,7 @@ public class controller {
     @GetMapping("/presentation/clientes/show")
     public String show(Model model,@ModelAttribute(name = "proveedor", binding = false) Proveedor proveedor) {
         model.addAttribute("clientes", service.clientesFindAll(proveedor));
+        model.addAttribute("clienteEditar", new Cliente());
         return "/presentation/clientes/Vista";
     }
 
@@ -28,7 +29,7 @@ public class controller {
     public String editar(@PathVariable("identificacion") String identificacion, Model model,
                          @ModelAttribute(name = "proveedor", binding = false) Proveedor proveedor){
         model.addAttribute("clienteEditar", service.clienteRead(proveedor.getIdentificacion(), identificacion));
-        return "redirect:/presentation/clientes/show";
+        return "/presentation/clientes/Vista";
     }
     @PostMapping("/presentation/clientes/create")
     public String guardar(@ModelAttribute("clienteEditar")Cliente clienteEdit,
@@ -36,7 +37,6 @@ public class controller {
                        Model model){
         model.addAttribute("clienteEditar", service.cambiarCliente(clienteEdit,proveedor));
         model.addAttribute("clientes", service.clientesFindAll(proveedor));
-        model.addAttribute("clienteEditar", new Cliente());
-        return "redirect:/presentation/clientes/show";
+        return "/presentation/clientes/Vista";
     }
 }

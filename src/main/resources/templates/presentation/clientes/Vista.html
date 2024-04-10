@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>Clientes</title>
     <link rel="stylesheet" href="/css/clientes.css">
+    <link rel="stylesheet" href="/css/tabla-editar.css">
+
 </head>
 <body>
 <header th:replace="~{/fragments/header :: header}"></header>
@@ -38,22 +40,22 @@
     </div>
     <div class="side-content">
         <div class="titulo-cliente">Editar</div>
-        <form method="POST" name="editar" th:object="${clienteEditar}" th:action="@{/presentation/clientes/create}" >
+        <form method="POST" name="editar" th:object="${clienteEditar}" th:action="@{/presentation/clientes/create}" autocomplete="off" >
             <div>
                 <label for="id">Identificacion</label>
-                <input type="text" id="id" name="identifiacion" value="" th:field="*{identificacion}">
+                <input type="text" id="id" name="identifiacion" value="" th:field="*{identificacion}" autocomplete="off">
             </div>
             <div>
                 <label for="nombre">Nombre</label>
-                <input type="text" id="nombre" name="nombre" value="" th:field="*{nombre}">
+                <input type="text" id="nombre" name="nombre" value="" th:field="*{nombre}" autocomplete="off">
             </div>
             <div>
                 <label for="correo">Correo</label>
-                <input type="text" id="correo" name="correo" value="" th:field="*{correo}">
+                <input type="text" id="correo" name="correo" value="" th:field="*{correo}" autocomplete="off">
             </div>
             <div>
                 <label for="telefono">Teléfono</label>
-                <input type="text" id="telefono" name="telefono" value="" th:field="*{telefono}">
+                <input type="text" id="telefono" name="telefono" value="" th:field="*{telefono}" autocomplete="off">
             </div>
             <div>
                 <input type="submit" name="crear" value="Crear">
@@ -61,9 +63,6 @@
         </form>
     </div>
 </div>
-
-<div class="footer">
-    <div>@factura.electronica.com<img class="logo" src="/images/logo.png"/>&nbsp</div>
-</div>
+<footer th:replace="~{/fragments/footer :: footer}"></footer>
 </body>
 </html>
