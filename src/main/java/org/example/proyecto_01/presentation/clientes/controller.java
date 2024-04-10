@@ -11,12 +11,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 
 @org.springframework.stereotype.Controller("clientes")
-@SessionAttributes({"clientes", "proveedor", "clienteEditar"})
+@SessionAttributes({"clientes", "proveedor", "clienteEditar", "clienteBusqueda"})
 public class controller {
     @Autowired
     private Service service;
+    @ModelAttribute("proveedor") public Proveedor proveedor(){return new Proveedor();}
     @ModelAttribute("clientes") public Iterable<Cliente> clientes(){return new ArrayList<Cliente>();}
     @ModelAttribute("clienteEditar") public Cliente clienteEditar(){return new Cliente();}
+    @ModelAttribute("clienteBusqueda") public Cliente clienteBusqueda(){return new Cliente();}
 
     @GetMapping("/presentation/clientes/show")
     public String show(Model model,@ModelAttribute(name = "proveedor", binding = false) Proveedor proveedor) {
@@ -39,4 +41,12 @@ public class controller {
         model.addAttribute("clientes", service.clientesFindAll(proveedor));
         return "/presentation/clientes/Vista";
     }
+
+    @PostMapping("/presentation/clientes/buscar")
+    public String buscar(@ModelAttribute("clienteBusqueda") Cliente clienteBusqueda, Model model,
+                         @ModelAttribute(name = "proveedor", binding = false) Proveedor proveedor){
+        model.addAttribute("clientes", service.busquedaClientes(clienteBusqueda.getNombre(), proveedor.getIdentificacion()));
+        return "/presentation/clientes/Vista";
+    }
+
 }

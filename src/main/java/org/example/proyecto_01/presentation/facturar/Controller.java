@@ -1,18 +1,15 @@
 package org.example.proyecto_01.presentation.facturar;
 
 
+import jakarta.servlet.http.HttpSession;
 import org.example.proyecto_01.logic.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.service.annotation.GetExchange;
+import org.springframework.web.bind.annotation.*;
 
 @org.springframework.stereotype.Controller("facturar")
-@SessionAttributes({"proveedor", "cliente", "factura", "detalle", "detalles"})
+@SessionAttributes({"proveedor", "cliente", "factura", "detalle", "detalles", "producto"})
 public class Controller {
 
     @Autowired
@@ -33,6 +30,11 @@ public class Controller {
         return new Factura();
     }
 
+    @ModelAttribute("producto")
+    public Producto producto() {
+        return new Producto();
+    }
+
     @ModelAttribute("detalle")
     public Detalle detalle() {
         return new Detalle();
@@ -40,41 +42,40 @@ public class Controller {
 
     @GetMapping("/presentation/facturar/show")
     public String show() {
-        return "/presentation/facturar/factura";
+        return "/presentation/facturar/Vista";
     }
 
     @PostMapping("/presentation/clientes/search")
-    public String searchCliente(@ModelAttribute("cliente") Cliente clienteSearch, @ModelAttribute(name = "factura") Factura factura,
+    public String searchCliente(@ModelAttribute("cliente") Cliente clienteSearch, @ModelAttribute(name = "factura") Factura factura, @ModelAttribute(name = "proveedor", binding = false) Proveedor proveedor,
                                 Model model) {
         try {
-            model.addAttribute("cliente", service.clienteById(clienteSearch.getIdentificacion()));
-
-            return "/presentation/facturar/factura";
+            model.addAttribute("cliente", service.clienteById(clienteSearch.getIdentificacion(), proveedor));
+            return "/presentation/facturar/Vista";
         } catch (Exception e) {
             model.addAttribute("error", "El cliente no fue encontrado");
-            return "/presentation/facturar/factura";
+            return "/presentation/facturar/Vista";
         }
     }
 
     @PostMapping("/presentation/productos/agregar")
-    public String searchProducto(String codigo, @ModelAttribute("cliente") Cliente cliente,
+    public String searchProducto(String producto, @ModelAttribute("cliente") Cliente cliente,
                                  @ModelAttribute(name = "factura") Factura factura,
                                  @ModelAttribute(name = "detalle") Detalle detalle,
                                  @ModelAttribute(name = "proveedor", binding = false) Proveedor proveedor,
                                  Model model) {
-        System.out.println(codigo + "perro");
         try {
             factura.setClienteByClienteNum(service.clienteByNum(cliente.getNumCliente()));
-            model.addAttribute("detalle", service.crearDetalle(detalle, codigo, factura.getCodigo(), proveedor.getIdentificacion()));
+            model.addAttribute("detalle", service.crearDetalle(detalle, producto, factura.getCodigo(), proveedor.getIdentificacion()));
             factura.getDetallesByCodigo().add(detalle);
             model.addAttribute("detalles", factura.getDetallesByCodigo());
             model.addAttribute("detalle", new Detalle());
-            return "/presentation/facturar/factura";
+            return "/presentation/facturar/Vista";
         } catch (Exception e) {
             model.addAttribute("error", "El cliente no fue encontrado");
-            return "/presentation/facturar/factura";
+            return "/presentation/facturar/Vista";
         }
     }
+
 
     @GetMapping("/presentation/facturas/show")
     public String show3() {

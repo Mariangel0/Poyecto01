@@ -18,7 +18,15 @@
                     <th>Nombre</th>
                     <th>Precio</th>
                     <th>Cantidad</th>
-                    <th>Proveedor</th>
+                    <th colspan="2">Proveedor</th>
+                </tr>
+                <tr>
+                    <td colspan="6">
+                        <form th:action="@{/presentation/productos/buscar}" method="post">
+                            <input type="text" name="nombre" class="form-control" placeholder="Buscar por nombre...">
+                            <input type="image" src="/images/loupe.png" width="20" height="20">
+                        </form>
+                    </td>
                 </tr>
                 <tr th:each="c: ${productos}">
                     <td th:text="${c.getCodigo()}"></td>
@@ -26,6 +34,11 @@
                     <td th:text="${c.getPrecio()}"></td>
                     <td th:text="${c.getCantidad()}"></td>
                     <td th:text="${c.getProveedorIdP()}"></td>
+                    <td>
+                        <a th:href="@{'/presentation/productos/editar/' + ${c.codigo}}" class="edit-link">
+                            <img class="icon" src="/images/edit.png"/>
+                        </a>
+                    </td>
                 </tr>
             </table>
 
@@ -34,10 +47,10 @@
     <div class="side-content">
         <div class="titulo-producto">Editar</div>
         <form method="POST" name="editar" th:object="${productoEditar}"
-              th:action="@{/presentation/clientes/create}">
+              th:action="@{/presentation/productos/crear}">
             <div>
                 <label for="codigo">Codigo</label>
-                <input type="text" id="codigo" name="codigo" value="" th:field="*{codigo}">
+                <input type="text" id="codigo" name="codigo" th:field="*{codigo}">
             </div>
             <div>
                 <label for="nombre">Nombre</label>

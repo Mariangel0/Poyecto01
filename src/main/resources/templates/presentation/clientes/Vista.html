@@ -16,15 +16,25 @@
             <div class="titulo-cliente">Clientes</div>
             <table>
                 <tr>
-                    <th>Identificacion</th>
+                    <th colspan="2" >Identificacion</th>
                     <th>Nombre</th>
                     <th>Correo</th>
                     <th colspan="2">Teléfono</th>
                 </tr>
                 <tr>
-                    <td colspan="6"><input type="text" name="codigo" size="5" value=""></td>
+                    <td colspan="6">
+                        <form th:action="@{/presentation/clientes/buscar}" method="post">
+                            <input type="text" name="nombre" class="form-control" placeholder="Buscar por nombre...">
+                            <input type="image" src="/images/loupe.png" width="20" height="20">
+                        </form>
+                    </td>
                 </tr>
                 <tr th:each="c: ${clientes}">
+                    <td>
+                        <a th:href="@{/presentation/facturar/Vista(cliID=${c.identificacion})}" class="edit-link">
+                            <img class="icon" src="/images/check.png"/>
+                        </a>
+                    </td>
                     <td th:text="${c.getIdentificacion()}"></td>
                     <td th:text="${c.getNombre()}"></td>
                     <td th:text="${c.getCorreo()}"></td>
@@ -40,10 +50,12 @@
     </div>
     <div class="side-content">
         <div class="titulo-cliente">Editar</div>
-        <form method="POST" name="editar" th:object="${clienteEditar}" th:action="@{/presentation/clientes/create}" autocomplete="off" >
+        <form method="POST" name="editar" th:object="${clienteEditar}"
+              th:action="@{/presentation/clientes/create}" autocomplete="off">
             <div>
                 <label for="id">Identificacion</label>
-                <input type="text" id="id" name="identifiacion" value="" th:field="*{identificacion}" autocomplete="off">
+                <input type="text" id="id" name="identifiacion" value="" th:field="*{identificacion}"
+                       autocomplete="off">
             </div>
             <div>
                 <label for="nombre">Nombre</label>

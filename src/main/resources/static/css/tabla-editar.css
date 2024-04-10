@@ -112,3 +112,8 @@ input[type="text"] {
     height: 20px;
     vertical-align: middle;
 }
+
+input[type="text"][disabled] {
+    background-color: #E5E4E2; /* Cambia el color de fondo a gris */
+
+}

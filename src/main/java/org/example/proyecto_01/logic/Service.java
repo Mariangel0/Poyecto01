@@ -24,34 +24,57 @@ public class Service {
     public void cambiarProveedor(Proveedor proveedor) {
         proveedorRepository.save(proveedor);
     }
+
     public Cliente cambiarCliente(Cliente cliente, Proveedor proveedor) {
         cliente.setProveedorIdC(proveedor.getIdentificacion());
         return clienteRepository.save(cliente);
     }
 
-    public void eliminarProovedor(String id){
+    public Producto cambiarProducto(Producto producto, Proveedor proveedor) {
+        producto.setProveedorIdP(proveedor.getIdentificacion());
+        return productoRepository.save(producto);
+    }
+
+    public void eliminarProovedor(String id) {
         proveedorRepository.deleteById(id);
         usuarioRepository.deleteById(id);
 
     }
+
     public Iterable<Producto> productosFindAll(Proveedor proveedor) {
         return productoRepository.findByProveedorIdP(proveedor.getIdentificacion());
     }
+
     public Iterable<Cliente> clientesFindAll(Proveedor proveedor) {
         return clienteRepository.findByProveedorIdC(proveedor.getIdentificacion());
     }
+
     public Cliente clienteRead(String idP, String idC) {
 
         return clienteRepository.findByProveedorIdCAndIdentificacion(idP, idC);
+
     }
 
     public Iterable<Proveedor> proveedorFindAll() {
         return proveedorRepository.findAll();
     }
 
+    public Iterable<Cliente> busquedaClientes(String nom, String id) {
+        return clienteRepository.findByNombreContainingAndProveedorIdC(nom, id);
+    }
+
+    public Iterable<Producto> busquedaProductos(String nom, String id) {
+        return productoRepository.findByNombreContainingAndProveedorIdP(nom, id);
+    }
+
     public Usuario usuarioRead(String id) {
 
         return usuarioRepository.findById(id).orElse(null);
+    }
+
+    public Producto productoRead(String cod, String id) {
+
+        return productoRepository.findByCodigoAndProveedorIdP(cod, id);
     }
 
     public Proveedor proveedorRead(String id) {
@@ -95,15 +118,15 @@ public class Service {
     }
 
 
-    public Cliente clienteById(String identificacion){
-        return clienteRepository.findByIdentificacion(identificacion);
+    public Cliente clienteById(String identificacion, Proveedor proveedor) {
+        return clienteRepository.findByProveedorIdCAndIdentificacion(proveedor.getIdentificacion(), identificacion);
     }
 
-    public Cliente clienteByNum(int num){
+    public Cliente clienteByNum(int num) {
         return clienteRepository.findByNumcliente(num);
     }
 
-    public Detalle crearDetalle(Detalle detalle, String codigo, int codFactura, String idProveedor){
+    public Detalle crearDetalle(Detalle detalle, String codigo, int codFactura, String idProveedor) {
         detalle.setProductoByProductoCodD(productoRepository.findByCodigoAndProveedorIdP(codigo, idProveedor));
         detalle.setCantidad(1);
         detalle.setMonto(detalle.getProductoByProductoCodD().getPrecio());
@@ -111,7 +134,6 @@ public class Service {
         return detalle;
 
     }
-
 
 
 }
