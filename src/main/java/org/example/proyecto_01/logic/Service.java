@@ -85,7 +85,6 @@ public class Service {
 
 
     public Cliente clienteById(String identificacion){
-        System.out.println(identificacion + "perro");
         return clienteRepository.findByIdentificacion(identificacion);
     }
 

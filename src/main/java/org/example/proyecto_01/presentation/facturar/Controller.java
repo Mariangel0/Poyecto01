@@ -1,10 +1,7 @@
 package org.example.proyecto_01.presentation.facturar;
 
 
-import org.example.proyecto_01.logic.Cliente;
-import org.example.proyecto_01.logic.Factura;
-import org.example.proyecto_01.logic.Proveedor;
-import org.example.proyecto_01.logic.Service;
+import org.example.proyecto_01.logic.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 
@@ -12,9 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.service.annotation.GetExchange;
 
 @org.springframework.stereotype.Controller("facturar")
-@SessionAttributes({"proveedor", "cliente", "factura"})
+@SessionAttributes({"proveedor", "cliente", "factura", "detalle"})
 public class Controller {
 
     @Autowired
@@ -35,18 +33,21 @@ public class Controller {
         return new Factura();
     }
 
+    @ModelAttribute("detalle")
+    public Detalle detalle() {
+        return new Detalle();
+    }
+
     @GetMapping("/presentation/facturar/show")
     public String show() {
         return "/presentation/facturar/factura";
     }
 
 
-
     @PostMapping("/presentation/clientes/search")
     public String searchCliente(@ModelAttribute("cliente") Cliente clienteSearch, @ModelAttribute(name = "factura") Factura factura,
                                 Model model) {
         try {
-            System.out.println(clienteSearch.getIdentificacion() + "arroz");
             model.addAttribute("cliente", service.clienteById(clienteSearch.getIdentificacion()));
             return "/presentation/facturar/factura";
         } catch (Exception e) {
@@ -59,6 +60,7 @@ public class Controller {
     public String show3() {
         return "/presentation/facturas/Facturas";
     }
+
 
 
 }
