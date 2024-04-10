@@ -33,19 +33,28 @@
             <th>...</th>
         </tr>
         <tr>
-            <td colspan="3"> Codigo <input type="text" name="codigo" size=15 value=""></td>
-            <form action="/presentation/productos/search" method="post">
-            <td><input type="image" src="/images/check.png" alt="Submit" class="check"/></td>
-            <td><a th:href="@{/presentation/productos/show}">
-                <img class="check" src="/images/loupe.png"/>
-            </a></td>
+            <form action="/presentation/productos/agregar" method="post">
+            <td colspan="3"> Codigo <input type="text" name="codigo" size=15 value=""> </td>
+                <td><input type="image" src="/images/check.png" alt="Submit" class="check"/></td>
+                <td><a th:href="@{/presentation/productos/show}">
+                    <img class="check" src="/images/loupe.png"/>
+                </a></td>
             </form>
         </tr>
-        <!--            <tr th:each="">-->
-        <!--            <td th:text="${c.getCantidad()}" />-->
-        <!--            <td th:text="${c.getNombre()}"/>-->
-        <!--            <td th:text="${c.getPrecio()}"-->
-        <!--            <td th:text="${c.getMonto()}"  </tr>-->
+        <tr th:each="d: ${detalles}">
+            <td>
+                <a th:href="@{/presentation/productos/eliminar}">
+                    <img class="check" src="/images/delete.png"/>
+                </a>
+            </td>
+            <td th:text="${d.getCantidad()}"></td>
+            <td th:text="${d.getProductoByProductoCodD().getNombre()}"></td>
+            <td th:text="${d.getMonto()}"></td>
+            <td>
+                <a th:href="@{/presentation/productos/add}">
+                    <img class="check" src="/images/add.png"/></a>
+            </td>
+        </tr>
         <tr>
             <td colspan="3"></td>
             <td>Total:</td>
