@@ -15,12 +15,14 @@
             <td colspan="5"> Proveedor: <span th:text="${proveedor.getNombre()}"></span></td>
         </tr>
         <tr>
-            <td> Cliente: <span th:if="${cliente != null}" th:text="${cliente.getNombre()}"></span></td>
+            <td colspan="2"> Cliente: <span th:if="${cliente != null}" th:text="${cliente.getNombre()}"></span></td>
             <form action="/presentation/clientes/search" method="post">
-                <td colspan="4">
+                <td colspan="3">
                     <input type="text" name="identificacion" value="identificacion" size="15">
                     <input type="image" src="/images/check.png" alt="Submit" class="check"/>
-                    <img class="check" src="/images/loupe.png"/></td>
+                    <a th:href="@{/presentation/clientes/show}">
+                        <img class="check" src="/images/loupe.png"/>
+                    </a>
             </form>
         </tr>
         <tr>
@@ -30,15 +32,28 @@
             <th>Monto</th>
             <th>...</th>
         </tr>
-        <!--            <tr th:each="">-->
-        <!--            <td th:text="${c.getCantidad()}" />-->
-        <!--            <td th:text="${c.getNombre()}"/>-->
-        <!--            <td th:text="${c.getPrecio()}"-->
-        <!--            <td th:text="${c.getMonto()}"  </tr>-->
         <tr>
-            <td colspan="3"> Codigo <input type="text" name="codigo" size=15 value=""></td>
-            <td><img class="check" src="/images/check.png"/></td>
-            <td><img class="check" src="/images/loupe.png"/></td>
+            <form action="/presentation/productos/agregar" method="post">
+            <td colspan="3"> Codigo <input type="text" name="codigo" size=15 value=""> </td>
+                <td><input type="image" src="/images/check.png" alt="Submit" class="check"/></td>
+                <td><a th:href="@{/presentation/productos/show}">
+                    <img class="check" src="/images/loupe.png"/>
+                </a></td>
+            </form>
+        </tr>
+        <tr th:each="d: ${detalles}">
+            <td>
+                <a th:href="@{/presentation/productos/eliminar}">
+                    <img class="check" src="/images/delete.png"/>
+                </a>
+            </td>
+            <td th:text="${d.getCantidad()}"></td>
+            <td th:text="${d.getProductoByProductoCodD().getNombre()}"></td>
+            <td th:text="${d.getMonto()}"></td>
+            <td>
+                <a th:href="@{/presentation/productos/add}">
+                    <img class="check" src="/images/add.png"/></a>
+            </td>
         </tr>
         <tr>
             <td colspan="3"></td>

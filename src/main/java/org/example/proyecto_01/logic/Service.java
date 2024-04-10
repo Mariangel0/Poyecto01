@@ -1,9 +1,6 @@
 package org.example.proyecto_01.logic;
 
-import org.example.proyecto_01.data.ClienteRepository;
-import org.example.proyecto_01.data.ProductoRepository;
-import org.example.proyecto_01.data.ProveedorRepository;
-import org.example.proyecto_01.data.UsuarioRepository;
+import org.example.proyecto_01.data.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @org.springframework.stereotype.Service("service")
@@ -16,6 +13,10 @@ public class Service {
     private ProveedorRepository proveedorRepository;
     @Autowired
     private ProductoRepository productoRepository;
+
+    @Autowired
+    private FacturaRepository facturaRepository;
+
 
     private HaciendaStub hacienda;
 
@@ -95,8 +96,20 @@ public class Service {
 
 
     public Cliente clienteById(String identificacion){
-        System.out.println(identificacion + "perro");
         return clienteRepository.findByIdentificacion(identificacion);
+    }
+
+    public Cliente clienteByNum(int num){
+        return clienteRepository.findByNumcliente(num);
+    }
+
+    public Detalle crearDetalle(Detalle detalle, String codigo, int codFactura, String idProveedor){
+        detalle.setProductoByProductoCodD(productoRepository.findByCodigoAndProveedorIdP(codigo, idProveedor));
+        detalle.setCantidad(1);
+        detalle.setMonto(detalle.getProductoByProductoCodD().getPrecio());
+        detalle.setFacturaByFacturaCodD(facturaRepository.findByCodigo(codFactura));
+        return detalle;
+
     }
 
 
