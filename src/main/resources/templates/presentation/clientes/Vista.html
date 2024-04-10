@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Clientes</title>
-    <link rel="stylesheet" href="/css/login.css">
     <link rel="stylesheet" href="/css/clientes.css">
 </head>
 <body>
@@ -15,43 +14,46 @@
             <div class="titulo-cliente">Clientes</div>
             <table>
                 <tr>
-                    <th></th>
                     <th>Identificacion</th>
                     <th>Nombre</th>
                     <th>Correo</th>
-                    <th>Teléfono</th>
-                    <th>...</th>
+                    <th colspan="2">Teléfono</th>
                 </tr>
                 <tr>
-                    <td colspan="6"> <input type="text" name="codigo" size="5" value=""> </td>
+                    <td colspan="6"><input type="text" name="codigo" size="5" value=""></td>
                 </tr>
-                <!--            <tr th:each="c: ${clientes}">-->
-                <!--            <td th:text="${c.getIdentificacion()}" />-->
-                <!--            <td th:text="${c.getNombre()}"/>-->
-                <!--            <td th:text="${c.getCorreo()}"-->
-                <!--            <td th:text="${c.getTelefono()}"  </tr>-->
+                <tr th:each="c: ${clientes}">
+                    <td th:text="${c.getIdentificacion()}"></td>
+                    <td th:text="${c.getNombre()}"></td>
+                    <td th:text="${c.getCorreo()}"></td>
+                    <td th:text="${c.getTelefono()}"></td>
+                    <td>
+                        <a th:href="@{'/presentation/clientes/edit/' + ${c.identificacion}}" class="edit-link">
+                            <img class="icon" src="/images/edit.png"/>
+                        </a>
+                    </td>
+                </tr>
             </table>
         </div>
     </div>
-
     <div class="side-content">
         <div class="titulo-cliente">Editar</div>
-        <form method="POST" name="editar">
+        <form method="POST" name="editar" th:object="${clienteEditar}" th:action="@{/presentation/clientes/create}" >
             <div>
                 <label for="id">Identificacion</label>
-                <input type="text" id="id" name="id" value="">
+                <input type="text" id="id" name="identifiacion" value="" th:field="*{identificacion}">
             </div>
             <div>
                 <label for="nombre">Nombre</label>
-                <input type="text" id="nombre" name="nombre" value="">
+                <input type="text" id="nombre" name="nombre" value="" th:field="*{nombre}">
             </div>
             <div>
                 <label for="correo">Correo</label>
-                <input type="text" id="correo" name="correo" value="">
+                <input type="text" id="correo" name="correo" value="" th:field="*{correo}">
             </div>
             <div>
                 <label for="telefono">Teléfono</label>
-                <input type="text" id="telefono" name="telefono" value="">
+                <input type="text" id="telefono" name="telefono" value="" th:field="*{telefono}">
             </div>
             <div>
                 <input type="submit" name="crear" value="Crear">

@@ -94,3 +94,13 @@ input[type="text"] {
 .side-content form input[type="submit"]:hover {
     background-color: #b30000; /* Color de fondo más oscuro al pasar el cursor */
 }
+
+.edit-link {
+    text-decoration: none;
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+}
