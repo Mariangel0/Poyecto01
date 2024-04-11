@@ -61,7 +61,6 @@ input[name="codigo"] {
 }
 
 .boton-con-imagen {
-    background-image: url("/images/save.png");
     background-repeat: no-repeat;
     background-position: left;
     border: none;
@@ -78,4 +77,13 @@ input[name="codigo"] {
     width: 15px; /* Ancho del logo */
     height: 15px; /* Altura del logo */
 
+}
+
+.error-message {
+    background-color: #ffcccc; /* Color de fondo del mensaje de error */
+    color: #cc0000; /* Color del texto del mensaje de error */
+    border: 1px solid #cc0000; /* Borde del mensaje de error */
+    margin-top: 5px; /* Margen superior del mensaje de error */
+    border-radius: 5px; /* Radio de borde del mensaje de error */
+    padding: 2px;
 }

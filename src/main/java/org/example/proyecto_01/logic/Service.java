@@ -1,7 +1,11 @@
 package org.example.proyecto_01.logic;
 
+import com.itextpdf.layout.element.Paragraph;
 import org.example.proyecto_01.data.*;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.sql.Date;
+import java.time.LocalDate;
 
 @org.springframework.stereotype.Service("service")
 public class Service {
@@ -13,12 +17,11 @@ public class Service {
     private ProveedorRepository proveedorRepository;
     @Autowired
     private ProductoRepository productoRepository;
-
     @Autowired
     private FacturaRepository facturaRepository;
+    @Autowired
+    private DetalleRepository detalleRepository;
 
-
-    private HaciendaStub hacienda;
 
     //proveedores
     public void cambiarProveedor(Proveedor proveedor) {
@@ -29,6 +32,17 @@ public class Service {
         cliente.setProveedorIdC(proveedor.getIdentificacion());
         return clienteRepository.save(cliente);
     }
+
+    public Factura crearFactura(Factura factura, Proveedor proveedor, Cliente cliente) {
+        factura.setProveedorIdF(proveedor.getIdentificacion());
+        LocalDate fecha = LocalDate.now();
+        factura.setFecha(Date.valueOf(fecha));
+        factura.setClienteByClienteNum(cliente);
+        factura.setClienteNum(cliente.getNumCliente());
+
+        return  facturaRepository.save(factura);
+    }
+
 
     public Producto cambiarProducto(Producto producto, Proveedor proveedor) {
         producto.setProveedorIdP(proveedor.getIdentificacion());
@@ -43,6 +57,9 @@ public class Service {
 
     public Iterable<Producto> productosFindAll(Proveedor proveedor) {
         return productoRepository.findByProveedorIdP(proveedor.getIdentificacion());
+    }
+    public Iterable<Factura> facturasFindAll(Proveedor proveedor) {
+        return facturaRepository.findAllByProveedorIdF(proveedor.getIdentificacion());
     }
 
     public Iterable<Cliente> clientesFindAll(Proveedor proveedor) {
@@ -126,14 +143,31 @@ public class Service {
         return clienteRepository.findByNumcliente(num);
     }
 
-    public Detalle crearDetalle(Detalle detalle, String codigo, int codFactura, String idProveedor) {
-        detalle.setProductoByProductoCodD(productoRepository.findByCodigoAndProveedorIdP(codigo, idProveedor));
+    // DETALLE
+
+    public Detalle crearDetalle(Detalle detalle, String codigoProd, String idProveedor) {
+        detalle.setProductoCodD(codigoProd);
         detalle.setCantidad(1);
-        detalle.setMonto(detalle.getProductoByProductoCodD().getPrecio());
-        detalle.setFacturaByFacturaCodD(facturaRepository.findByCodigo(codFactura));
+        detalle.setProductoByProductoCodD(productoRepository.findByCodigoAndProveedorIdP(codigoProd, idProveedor));
+        detalle.setMonto(productoRepository.findByCodigoAndProveedorIdP(codigoProd, idProveedor).getPrecio() * detalle.getCantidad());
         return detalle;
 
     }
 
+
+
+    public Factura facturaRead(int cod){
+        return facturaRepository.findByCodigo(cod);
+    }
+
+    public Iterable<Detalle> detalles(int codFactura){
+        return detalleRepository.findAllByFacturaCodD(codFactura);
+    }
+
+    public void guardarDetalle(Detalle detalle, int factura) {
+        detalle.setFacturaCodD(factura);
+        detalle.setFacturaByFacturaCodD(facturaRepository.findByCodigo(factura));
+        detalleRepository.save(detalle);
+    }
 
 }

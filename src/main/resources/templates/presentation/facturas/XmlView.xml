@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FacturaElectronica>
+    <Clave>50612082000011076030100100001010000001832116540079</Clave>
+    <CodigoActividad>851202</CodigoActividad>
+    <NumeroConsecutivo>00100001010000001832</NumeroConsecutivo>
+    <FechaEmision th:text="${factura.fecha}"></FechaEmision>
+    <Emisor>
+        <Nombre th:text="${factura.proveedorByProveedorIdF.nombre}"></Nombre>
+        <Identificacion>
+            <Tipo>01</Tipo>
+            <Numero th:text="${factura.proveedorByProveedorIdF.identificacion}"></Numero>
+        </Identificacion>
+        <NombreComercial th:text="${factura.proveedorByProveedorIdF.nombre}"></NombreComercial>
+    </Emisor>
+    <Receptor>
+        <Nombre th:text="${factura.clienteByClienteNum.nombre}"></Nombre>
+        <Identificacion>
+            <Tipo>01</Tipo>
+            <Numero th:text="${factura.clienteByClienteNum.identificacion}"></Numero>
+        </Identificacion>
+        <Correo th:text="${factura.clienteByClienteNum.correo}"></Correo>
+        <Telefono th:text="${factura.clienteByClienteNum.telefono}"></Telefono>
+    </Receptor>
+
+</FacturaElectronica>

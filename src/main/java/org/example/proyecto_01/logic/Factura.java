@@ -2,12 +2,14 @@ package org.example.proyecto_01.logic;
 
 import jakarta.persistence.*;
 
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
 
 @Entity
 public class Factura {
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "codigo")
     private int codigo;
@@ -16,12 +18,25 @@ public class Factura {
     private double total;
     @OneToMany(mappedBy = "facturaByFacturaCodD")
     private Collection<Detalle> detallesByCodigo;
+    @Basic
+    @Column(name = "cliente_num")
+    private int clienteNum;
+    @Basic
+    @Column(name = "proveedor_idF")
+    private String proveedorIdF;
     @ManyToOne
-    @JoinColumn(name = "cliente_num", referencedColumnName = "numCliente", nullable = false)
+    @JoinColumn(name = "cliente_num", referencedColumnName = "numCliente", nullable = false, insertable=false, updatable=false)
     private Cliente clienteByClienteNum;
     @ManyToOne
-    @JoinColumn(name = "proveedor_idF", referencedColumnName = "identificacion", nullable = false)
+    @JoinColumn(name = "proveedor_idF", referencedColumnName = "identificacion", nullable = false, insertable=false, updatable=false)
     private Proveedor proveedorByProveedorIdF;
+    @Basic
+    @Column(name = "fecha")
+    private Date fecha;
+
+    public Factura() {
+        this.detallesByCodigo = new ArrayList<>();
+    }
 
     public int getCodigo() {
         return codigo;
@@ -74,5 +89,29 @@ public class Factura {
 
     public void setProveedorByProveedorIdF(Proveedor proveedorByProveedorIdF) {
         this.proveedorByProveedorIdF = proveedorByProveedorIdF;
+    }
+
+    public int getClienteNum() {
+        return clienteNum;
+    }
+
+    public void setClienteNum(int clienteNum) {
+        this.clienteNum = clienteNum;
+    }
+
+    public String getProveedorIdF() {
+        return proveedorIdF;
+    }
+
+    public void setProveedorIdF(String proveedorIdF) {
+        this.proveedorIdF = proveedorIdF;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
     }
 }

@@ -14,11 +14,13 @@
             <div class="titulo-producto">Productos</div>
             <table>
                 <tr>
+                    <th></th>
                     <th>Codigo</th>
                     <th>Nombre</th>
                     <th>Precio</th>
                     <th>Cantidad</th>
-                    <th colspan="2">Proveedor</th>
+                    <th>Proveedor</th>
+                    <th></th>
                 </tr>
                 <tr>
                     <td colspan="6">
@@ -29,6 +31,11 @@
                     </td>
                 </tr>
                 <tr th:each="c: ${productos}">
+                    <td>
+                        <a th:href="@{/presentation/facturar/selectP(proCod=${c.codigo})}" class="edit-link">
+                            <img class="icon" src="/images/check.png"/>
+                        </a>
+                    </td>
                     <td th:text="${c.getCodigo()}"></td>
                     <td th:text="${c.getNombre()}"></td>
                     <td th:text="${c.getPrecio()}"></td>
@@ -50,7 +57,8 @@
               th:action="@{/presentation/productos/crear}">
             <div>
                 <label for="codigo">Codigo</label>
-                <input type="text" id="codigo" name="codigo" th:field="*{codigo}">
+                <input type="text" id="codigo" name="codigo" th:field="*{codigo}"
+                       th:attr="readonly=${productoEditar.codigo != null}">
             </div>
             <div>
                 <label for="nombre">Nombre</label>

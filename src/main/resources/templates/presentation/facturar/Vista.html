@@ -3,69 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <title>Facturar</title>
-    <link rel="stylesheet" href="/css/login.css">
     <link rel="stylesheet" href="/css/facturar.css">
 </head>
 <body>
 <header th:replace="~{/fragments/header :: header}"></header>
-
-<div class="centered">
-    <table class="table">
-        <tr>
-            <td colspan="5"> Proveedor: <span th:text="${proveedor.getNombre()}"></span></td>
-        </tr>
-        <tr>
-            <td colspan="2"> Cliente: <span th:if="${cliente != null}" th:text="${cliente.getNombre()}"></span></td>
-            <form action="/presentation/clientes/search" method="post">
+<form th:action="@{/presentation/facturar/crear}" th:object="${factura}" method="post">
+    <div class="centered">
+        <table class="table">
+            <tr>
+                <td colspan="5"> Proveedor: <span th:text="${proveedor.getNombre()}"></span></td>
+            </tr>
+            <tr>
+                <td colspan="2"> Cliente: <span th:if="${cliente != null}" th:text="${cliente.getNombre()}"></span></td>
                 <td colspan="3">
-                    <input type="text" name="identificacion" value="identificacion" size="15">
-                    <input type="image" src="/images/check.png" alt="Submit" class="check"/>
+                    <form th:action="@{/presentation/clientes/search}" method="post">
+                        <input type="text" name="identificacion" value="identificacion" size="15">
+                        <input type="image" src="/images/check.png" alt="Submit" class="check"/>
+                    </form>
+                </td>
+                <td>
                     <a th:href="@{/presentation/clientes/show}">
-                        <img class="check" src="/images/loupe.png"/>
-                    </a>
-            </form>
-        </tr>
-        <tr>
-            <th>Cant.</th>
-            <th>Descripcion</th>
-            <th>Precio</th>
-            <th>Monto</th>
-            <th>...</th>
-        </tr>
-        <tr>
-            <form action="/presentation/productos/agregar" method="post">
-            <td colspan="3"> Codigo <input type="text" name="codigo" size=15 value=""> </td>
-                <td><input type="image" src="/images/check.png" alt="Submit" class="check"/></td>
-                <td><a th:href="@{/presentation/productos/show}">
                     <img class="check" src="/images/loupe.png"/>
-                </a></td>
-            </form>
-        </tr>
-        <tr th:each="d: ${detalles}">
-            <td>
-                <a th:href="@{/presentation/productos/eliminar}">
-                    <img class="check" src="/images/delete.png"/>
-                </a>
-            </td>
-            <td th:text="${d.getCantidad()}"></td>
-            <td th:text="${d.getProductoByProductoCodD().getNombre()}"></td>
-            <td th:text="${d.getMonto()}"></td>
-            <td>
-                <a th:href="@{/presentation/productos/add}">
-                    <img class="check" src="/images/add.png"/></a>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="3"></td>
-            <td>Total:</td>
-            <td></td>
-        </tr>
-    </table>
-</div>
-<div class="section"><input type="submit" name="guardar" value="Save" class="boton-con-imagen"></div>
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <th></th>
+                <th>Cant.</th>
+                <th>Descripcion</th>
+                <th>Precio</th>
+                <th>Monto</th>
+                <th>...</th>
+            </tr>
+            <tr>
+                <form action="/presentation/facturar/agregar" method="post">
+                    <td colspan="3"> Codigo <input type="text" name="producto" size=15 value=""></td>
+                    <td><input type="image" src="/images/check.png" alt="Submit" class="check"/></td>
+                    <td><a th:href="@{/presentation/productos/show}">
+                        <img class="check" src="/images/loupe.png"/>
+                    </a></td>
+                </form>
+            </tr>
+            <tr th:each="d: ${detalles}">
+                <td>
+                    <a th:href="@{'/presentation/facturar/eliminar/' + ${d.codigo}}" class="edit-link">
+                        <img class="check" src="/images/delete.png"/>
+                    </a>
+                </td>
+                <td th:text="${d.getCantidad()}"></td>
+                <td th:text="${d.getProductoByProductoCodD().getNombre()}"></td>
+                <td th:text="${d.getMonto()}"></td>
+                <td>
+                    <a th:href="@{'/presentation/facturar/sumar/' + ${d.getProductoCodD()}}" class="edit-link">
+                        <img class="check" src="/images/add.png"/>
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3"></td>
+                <td>Total:</td>
+                <td></td>
+            </tr>
+        </table>
+        <div th:if="${error}" class="error-message"><p th:text="${error}"></p></div>
+    </div>
 
-<div class="footer">
-    <div>@factura.electronica.com<img class="logo" src="/images/logo.png"/>&nbsp</div>
-</div>
+    <div class="section">
+        <button type="submit">
+            <img src="/images/save.png" alt="Guardar" width="20" height="20">
+            Guardar
+        </button>
+    </div>
+</form>
+<footer th:replace="~{/fragments/footer :: footer}"></footer>
 </body>
 </html>

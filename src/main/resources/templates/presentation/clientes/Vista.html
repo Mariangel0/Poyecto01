@@ -16,10 +16,12 @@
             <div class="titulo-cliente">Clientes</div>
             <table>
                 <tr>
-                    <th colspan="2" >Identificacion</th>
+                    <th></th>
+                    <th >Identificacion</th>
                     <th>Nombre</th>
                     <th>Correo</th>
-                    <th colspan="2">Teléfono</th>
+                    <th >Teléfono</th>
+                    <th></th>
                 </tr>
                 <tr>
                     <td colspan="6">
@@ -31,7 +33,7 @@
                 </tr>
                 <tr th:each="c: ${clientes}">
                     <td>
-                        <a th:href="@{/presentation/facturar/Vista(cliID=${c.identificacion})}" class="edit-link">
+                        <a th:href="@{/presentation/facturar/selectC(cliID=${c.identificacion})}" class="edit-link">
                             <img class="icon" src="/images/check.png"/>
                         </a>
                     </td>

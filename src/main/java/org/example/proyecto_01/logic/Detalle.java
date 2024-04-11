@@ -16,12 +16,19 @@ public class Detalle {
     @Basic
     @Column(name = "monto")
     private double monto;
+    @Basic
+    @Column(name = "producto_codD")
+    private String productoCodD;
+    @Basic
+    @Column(name = "factura_codD")
+    private int facturaCodD;
     @ManyToOne
-    @JoinColumn(name = "producto_codD", referencedColumnName = "codigo", nullable = false)
+    @JoinColumn(name = "producto_codD", referencedColumnName = "codigo", nullable = false, insertable=false, updatable=false)
     private Producto productoByProductoCodD;
     @ManyToOne
-    @JoinColumn(name = "factura_codD", referencedColumnName = "codigo", nullable = false)
+    @JoinColumn(name = "factura_codD", referencedColumnName = "codigo", nullable = false, insertable=false, updatable=false)
     private Factura facturaByFacturaCodD;
+
 
     public int getCodigo() {
         return codigo;
@@ -74,5 +81,21 @@ public class Detalle {
 
     public void setFacturaByFacturaCodD(Factura facturaByFacturaCodD) {
         this.facturaByFacturaCodD = facturaByFacturaCodD;
+    }
+
+    public String getProductoCodD() {
+        return productoCodD;
+    }
+
+    public void setProductoCodD(String productoCodD) {
+        this.productoCodD = productoCodD;
+    }
+
+    public int getFacturaCodD() {
+        return facturaCodD;
+    }
+
+    public void setFacturaCodD(int facturaCodD) {
+        this.facturaCodD = facturaCodD;
     }
 }

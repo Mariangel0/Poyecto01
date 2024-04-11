@@ -7,4 +7,6 @@ public interface FacturaRepository extends CrudRepository<Factura, String> {
 
     Factura findByCodigo(int codigo);
 
+    Iterable<Factura> findAllByProveedorIdF(String id);
+
 }
