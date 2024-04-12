@@ -57,19 +57,19 @@
             <div>
                 <label for="id">Identificacion</label>
                 <input type="text" id="id" name="identifiacion" value="" th:field="*{identificacion}"
-                       autocomplete="off">
+                      required>
             </div>
             <div>
                 <label for="nombre">Nombre</label>
-                <input type="text" id="nombre" name="nombre" value="" th:field="*{nombre}" autocomplete="off">
+                <input type="text" id="nombre" name="nombre" value="" th:field="*{nombre}" required>
             </div>
             <div>
                 <label for="correo">Correo</label>
-                <input type="text" id="correo" name="correo" value="" th:field="*{correo}" autocomplete="off">
+                <input type="text" id="correo" name="correo" value="" th:field="*{correo}" required>
             </div>
             <div>
                 <label for="telefono">Teléfono</label>
-                <input type="text" id="telefono" name="telefono" value="" th:field="*{telefono}" autocomplete="off">
+                <input type="text" id="telefono" name="telefono" value="" th:field="*{telefono}" required>
             </div>
             <div>
                 <input type="submit" name="crear" value="Crear">

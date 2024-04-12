@@ -58,19 +58,19 @@
             <div>
                 <label for="codigo">Codigo</label>
                 <input type="text" id="codigo" name="codigo" th:field="*{codigo}"
-                       th:attr="readonly=${productoEditar.codigo != null}">
+                       th:attr="readonly=${productoEditar.codigo != null}" required>
             </div>
             <div>
                 <label for="nombre">Nombre</label>
-                <input type="text" id="nombre" name="nombre" value="" th:field="*{nombre}">
+                <input type="text" id="nombre" name="nombre" value="" th:field="*{nombre}" required>
             </div>
             <div>
                 <label for="precio">Precio</label>
-                <input type="text" id="precio" name="precio" value="" th:field="*{precio}">
+                <input type="text" id="precio" name="precio" value="" th:field="*{precio}" required>
             </div>
             <div>
                 <label for="cantidad">Cantidad</label>
-                <input type="text" id="cantidad" name="cantidad" value="" th:field="*{cantidad}">
+                <input type="text" id="cantidad" name="cantidad" value="" th:field="*{cantidad}" required>
             </div>
             <div>
                 <input type="submit" name="crear" value="Crear">

@@ -61,17 +61,11 @@ public class Controller {
     }
 
     @PostMapping("/presentation/clientes/search")
-    public String searchCliente(@ModelAttribute("cliente") Cliente cliente,
+    public String searchCliente(Cliente cliente,
                                 @ModelAttribute(name = "proveedor", binding = false) Proveedor proveedor,
                                 Model model) {
-        try {
-            System.out.println("---------" + cliente.getIdentificacion());
-            model.addAttribute("cliente", service.clienteById(cliente.getIdentificacion(), proveedor));
-            return "/presentation/facturar/Vista";
-        } catch (Exception e) {
-            model.addAttribute("error", "El cliente no fue encontrado");
-            return "/presentation/facturar/Vista";
-        }
+        model.addAttribute("cliente", service.clienteRead(proveedor.getIdentificacion(), cliente.getIdentificacion()));
+        return "/presentation/facturar/Vista";
     }
 
     @GetMapping("/presentation/facturar/selectC")
@@ -131,6 +125,7 @@ public class Controller {
             factura.getDetallesByCodigo().add(detalle1);
             model.addAttribute("detalles", factura.getDetallesByCodigo());
             model.addAttribute("total", updateTotal(detalles));
+
             model.addAttribute("detalle", new Detalle());
             return "/presentation/facturar/Vista";
         } catch (Exception e) {
@@ -144,12 +139,17 @@ public class Controller {
     public String add(@ModelAttribute(name = "proveedor", binding = false) Proveedor proveedor,
                       @ModelAttribute(name = "factura") Factura factura, Model model,
                       @ModelAttribute(name = "cliente") Cliente cliente,
-                      @ModelAttribute("detalles") Iterable<Detalle> detalles) {
+                      @ModelAttribute("detalles") Iterable<Detalle> detalles,
+                      @ModelAttribute(name = "total") Double total) {
         try {
-            if (factura.getDetallesByCodigo().isEmpty() || cliente == null) {
+            if( cliente == null) {
+                model.addAttribute("error", "El cliente no pudo ser encontrado");
+            }
+            if (factura.getDetallesByCodigo().isEmpty()) {
                 model.addAttribute("error", "La factura no pudo ser creada");
             } else {
-                model.addAttribute("factura", service.crearFactura(factura, proveedor, cliente ));
+                Double total1 =  updateTotal(factura.getDetallesByCodigo());
+                model.addAttribute("factura", service.crearFactura(factura, proveedor, cliente, total1));
                 for (Detalle d : detalles) {
                     service.guardarDetalle(d, factura.getCodigo());
                 }
@@ -157,6 +157,7 @@ public class Controller {
             model.addAttribute("detalles", new ArrayList<>());
             model.addAttribute("detalle", new Detalle());
             model.addAttribute("cliente", new Cliente());
+            model.addAttribute("factura", new Factura());
             return "/presentation/facturar/Vista";
         } catch (Exception e) {
             model.addAttribute("error", "La factura no pudo ser creada");

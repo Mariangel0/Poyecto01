@@ -33,13 +33,14 @@ public class Service {
         return clienteRepository.save(cliente);
     }
 
-    public Factura crearFactura(Factura factura, Proveedor proveedor, Cliente cliente) {
+    public Factura crearFactura(Factura factura, Proveedor proveedor, Cliente cliente,Double total) {
         factura.setProveedorIdF(proveedor.getIdentificacion());
         LocalDate fecha = LocalDate.now();
         factura.setFecha(Date.valueOf(fecha));
         factura.setClienteByClienteNum(cliente);
         factura.setClienteNum(cliente.getNumCliente());
-
+        factura.setTotal(total);
+        System.out.println("total: " + total);
         return  facturaRepository.save(factura);
     }
 
@@ -67,9 +68,7 @@ public class Service {
     }
 
     public Cliente clienteRead(String idP, String idC) {
-
         return clienteRepository.findByProveedorIdCAndIdentificacion(idP, idC);
-
     }
 
     public Iterable<Proveedor> proveedorFindAll() {

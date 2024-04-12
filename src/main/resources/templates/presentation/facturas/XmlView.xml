@@ -21,5 +21,14 @@
         <Correo th:text="${factura.clienteByClienteNum.correo}"></Correo>
         <Telefono th:text="${factura.clienteByClienteNum.telefono}"></Telefono>
     </Receptor>
-
+    <DetalleServicio th:each="d: ${factura.getDetallesByCodigo()}">
+        <Producto th:texto="${d.productoByProductoCodD.nombre}"></Producto>
+        <CodigoFactura th:texto="${d.codigo}"></CodigoFactura>
+        <PrecioUnitario th:texto="${d.productoByProductoCodD.precio}"></PrecioUnitario>
+        <Cantidad th:texto="${d.productoByProductoCodD.cantidad}"></Cantidad>
+        <Monto th:texto="${d.monto}"></Monto>
+    </DetalleServicio>
+    <ResumenFactura>
+        <Total th:text="${factura.total}"></Total>
+    </ResumenFactura>
 </FacturaElectronica>

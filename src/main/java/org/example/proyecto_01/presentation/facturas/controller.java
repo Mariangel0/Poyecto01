@@ -1,11 +1,18 @@
 package org.example.proyecto_01.presentation.facturas;
 
+import com.itextpdf.kernel.colors.DeviceRgb;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.kernel.pdf.PdfOutline;
+
 import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.kernel.pdf.canvas.draw.SolidLine;
 import com.itextpdf.layout.Document;
+import com.itextpdf.layout.Style;
+import com.itextpdf.layout.borders.Border;
+import com.itextpdf.layout.element.LineSeparator;
 import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Text;
+import com.itextpdf.layout.property.TextAlignment;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.proyecto_01.logic.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,13 +20,16 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
+
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 import org.thymeleaf.spring6.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.templatemode.TemplateMode;
+import com.itextpdf.kernel.colors.Color;
 
+
+import java.awt.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -42,7 +52,7 @@ public class controller {
     }
 
     @GetMapping("/presentation/facturas/pdf")
-    public void pdf(Factura facturaN, HttpServletResponse response) throws IOException{
+    public void pdf(Factura facturaN, HttpServletResponse response) throws IOException {
         Factura factura = service.facturaRead(facturaN.getCodigo());
         PdfWriter writer = new PdfWriter(response.getOutputStream());
         PdfDocument pdf = new PdfDocument(writer);
@@ -50,25 +60,33 @@ public class controller {
         response.setContentType("application/pdf");
         response.setHeader("Content-Disposition", "inline; filename=factura.pdf");
 
-        document.add(new Paragraph("Factura"));
-        document.add(new Paragraph("Código: " + factura.getCodigo()));
-        document.add(new Paragraph("Total: " + factura.getTotal()));
-        document.add(new Paragraph("Cliente: " + factura.getClienteByClienteNum().getNombre())); // Ejemplo, ajusta según tu modelo de datos
-        document.add(new Paragraph("Proveedor: " + factura.getProveedorByProveedorIdF().getNombre())); // Ejemplo, ajusta según tu modelo de datos
-        document.add(new Paragraph("Fecha: " + factura.getFecha()));
+        // Configurar estilo para el marco
+        Style frameStyle = new Style()
+                .setBorder(Border.NO_BORDER)
+                .setTextAlignment(TextAlignment.CENTER);
 
-        document.add(new Paragraph("Detalles de la factura:"));
+        document.add(new Paragraph("Factura").setBold().setFontSize(20).setTextAlignment(TextAlignment.CENTER).setMarginBottom(10));
+        document.add(new Paragraph("Código: " + factura.getCodigo()).addStyle(frameStyle));
+        document.add(new Paragraph("Total: " + factura.getTotal()).addStyle(frameStyle));
+        document.add(new Paragraph("Cliente: " + factura.getClienteByClienteNum().getNombre()).addStyle(frameStyle));
+        document.add(new Paragraph("Proveedor: " + factura.getProveedorByProveedorIdF().getNombre()).addStyle(frameStyle));
+        document.add(new Paragraph("Fecha: " + factura.getFecha()).addStyle(frameStyle));
+
+        document.add(new Paragraph("Detalles de la factura:").setMarginTop(20).setMarginBottom(10).setBold());
         for (Detalle detalle : service.detalles(factura.getCodigo())) {
-            document.add(new Paragraph("-----------------------"));
-            document.add(new Paragraph("Producto: " + detalle.getProductoByProductoCodD().getNombre())); // Ejemplo, ajusta según tu modelo de datos
-            document.add(new Paragraph("Cantidad: " + detalle.getCantidad()));
-            document.add(new Paragraph("Precio: " + detalle.getMonto()));
-            document.add(new Paragraph("Subtotal: " + detalle.getMonto()));
-            document.add(new Paragraph("-----------------------"));
+            Paragraph detalleParagraph = new Paragraph()
+                    .add(new Text("-----------------------").setFontSize(8))
+                    .add(new Paragraph("Producto: " + detalle.getProductoByProductoCodD().getNombre()).addStyle(frameStyle))
+                    .add(new Paragraph(" Cantidad: " + detalle.getCantidad()).addStyle(frameStyle))
+                    .add(new Paragraph(" Precio: " + detalle.getProductoByProductoCodD().getPrecio()).addStyle(frameStyle))
+                    .add(new Paragraph(" Subtotal: " + detalle.getMonto()).addStyle(frameStyle))
+                    .add(new Text("-----------------------").setFontSize(8));
+            document.add(detalleParagraph);
         }
 
         document.close();
     }
+
 
     @GetMapping("presentation/facturas/xml")
     public void xml(Factura facturaNumero, HttpServletResponse res) throws Exception {

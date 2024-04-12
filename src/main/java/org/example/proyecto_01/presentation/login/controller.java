@@ -40,6 +40,7 @@ public class controller {
         return "/presentation/login/Vista";
     }
 
+
     @PostMapping("/presentation/login/login")
     public String login(@Valid @ModelAttribute("usuario") Usuario usuario, BindingResult result,
                         HttpSession httpSession, Model model) {
@@ -81,11 +82,11 @@ public class controller {
         return "/presentation/login/Perfil";
     }
     @PostMapping("/presentation/login/modificar")
-    public String guardar(@ModelAttribute(name = "proveedor", binding = false) Proveedor proveedor,
-                          HttpSession httpSession,
+    public String guardar(@ModelAttribute(name = "proveedor") Proveedor proveedor,
                           Model model) {
         try {
             model.addAttribute("proveedor", service.editarProveedor(proveedor));
+            model.addAttribute("exito", "Los cambios han sido guardados correctamente");
             return "/presentation/login/Perfil";
         } catch (Exception e) {
             model.addAttribute("error", "No se pudo realizar el cambio. Por favor, intente de nuevo.");
