@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Perfil</title>
+  <link rel="stylesheet" href="/css/registro.css">
+</head>
+<body>
+<header th:replace="~{/fragments/header :: header}"></header>
+<div class="body">
+  <form id="editar" method="POST" name="editar" th:action="@{/presentation/login/modificar}" th:object="${proveedor}">
+    <div class="form">
+      <div class="heading"> Perfil</div>
+      <div class="row">
+        <div>Nombre</div>
+        <div><input type="text" id="nombre" name="nombre" size=15 value="" th:field="*{nombre}"></div>
+      </div>
+      <div class="row">
+        <div>Identificacion</div>
+        <div><input type="text" id="identificacion" name="identificacion" size=15 value="" th:field="*{identificacion}" disabled></div>
+      </div>
+      <div class="row">
+        <div>Correo</div>
+        <div><input type="text" id="correo" name="correo" size=15 value="" th:field="*{correo}" ></div>
+      </div>
+      <div th:if="${exito}" class="exito-feedback"> <p th:text="${exito}"></p> </div>
+      <div th:if="${error}" class="error-message"> <p th:text="${error}"></p> </div>
+      <div class="heading"><input type="submit" name="registro" value="Aceptar cambios"></div>
+    </div>
+  </form>
+</div>
+<footer th:replace="~{/fragments/footer :: footer}"></footer>
+</body>
+</html>

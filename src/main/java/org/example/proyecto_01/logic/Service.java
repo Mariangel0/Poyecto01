@@ -112,20 +112,17 @@ public class Service {
 
     public void crearUsuario(String identificacion, String clave, String nombre, String correo) {
 
-        // Verificar si el proveedor ya existe
         Proveedor proveedorExistente = proveedorRepository.findByidentificacion(identificacion);
         if (proveedorExistente != null) {
             throw new IllegalArgumentException("El proveedor con identificación " + identificacion + " ya está registrado.");
         }
 
-        // Crear un nuevo usuario
         Usuario usuario = new Usuario();
         usuario.setIdentificacion(identificacion);
         usuario.setClave(clave);
         usuario.setRol("PRO");
         usuarioRepository.save(usuario);
 
-        // Crear un nuevo proveedor
         Proveedor proveedor = new Proveedor();
         proveedor.setIdentificacion(identificacion);
         proveedor.setNombre(nombre);
@@ -133,6 +130,13 @@ public class Service {
         proveedor.setEstado((byte) 0);
         proveedorRepository.save(proveedor);
     }
+
+
+    public Proveedor editarProveedor(Proveedor proveedor) {
+        return proveedorRepository.save(proveedor);
+    }
+
+
 
 
     public Cliente clienteById(String identificacion, Proveedor proveedor) {

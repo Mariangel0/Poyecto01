@@ -15,6 +15,7 @@ import java.util.Objects;
 
 
 @org.springframework.stereotype.Controller("usuario")
+@SessionAttributes({"proveedor"})
 public class controller {
 
     @Autowired
@@ -23,6 +24,10 @@ public class controller {
     @ModelAttribute("usuario")
     public Usuario UsuarioSearch() {
         return new Usuario();
+    }
+    @ModelAttribute("proveedor")
+    public Proveedor proveedor() {
+        return new Proveedor();
     }
 
     @GetMapping("/")
@@ -44,6 +49,7 @@ public class controller {
                 if (Objects.equals(usuarioDB.getRol(), "ADM") || service.proveedorRead(usuarioDB.getIdentificacion()).getEstado().equals((byte) 1)) {
                     httpSession.setAttribute("usuario", usuarioDB);
                     httpSession.setAttribute("proveedor", service.proveedorRead(usuarioDB.getIdentificacion()));
+                    model.addAttribute("proveedor", service.proveedorRead(usuarioDB.getIdentificacion()));
                     switch (usuarioDB.getRol()) {
                         case "PRO":
                             return "redirect:/presentation/facturar/show";
@@ -68,9 +74,23 @@ public class controller {
         return "/presentation/login/Vista";
     }
 
-    @GetMapping("/presentation/login/registrar")
-    public String logout() {
-        return "/presentation/login/registrar";
+    @GetMapping("/presentation/login/perfil")
+    public String configurarPerfil(@ModelAttribute(name = "proveedor", binding = false) Proveedor proveedor,
+                                   Model model) {
+        model.addAttribute("proveedor", service.proveedorRead(proveedor.getIdentificacion()));
+        return "/presentation/login/Perfil";
+    }
+    @PostMapping("/presentation/login/modificar")
+    public String guardar(@ModelAttribute(name = "proveedor", binding = false) Proveedor proveedor,
+                          HttpSession httpSession,
+                          Model model) {
+        try {
+            model.addAttribute("proveedor", service.editarProveedor(proveedor));
+            return "/presentation/login/Perfil";
+        } catch (Exception e) {
+            model.addAttribute("error", "No se pudo realizar el cambio. Por favor, intente de nuevo.");
+            return "/presentation/login/Perfil";
+        }
     }
 
     @PostMapping("/presentation/login/registro")
