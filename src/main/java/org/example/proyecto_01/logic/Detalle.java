@@ -10,9 +10,10 @@ public class Detalle {
     @Id
     @Column(name = "codigo")
     private int codigo;
+
     @Basic
     @Column(name = "cantidad")
-    private int cantidad;
+    private int cantidad = 1;
     @Basic
     @Column(name = "monto")
     private double monto;

@@ -147,7 +147,6 @@ public class Service {
 
     public Detalle crearDetalle(Detalle detalle, String codigoProd, String idProveedor) {
         detalle.setProductoCodD(codigoProd);
-        detalle.setCantidad(1);
         detalle.setProductoByProductoCodD(productoRepository.findByCodigoAndProveedorIdP(codigoProd, idProveedor));
         detalle.setMonto(productoRepository.findByCodigoAndProveedorIdP(codigoProd, idProveedor).getPrecio() * detalle.getCantidad());
         return detalle;
